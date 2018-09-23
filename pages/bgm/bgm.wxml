@@ -1,0 +1,39 @@
+<!--搜索框部分-->
+<view class="wxSearch-section" bindtap='sousuo'>
+  <view class="wxSearch-pancel">
+    <input class="wxSearch-input" placeholder="搜索" />
+    <button class="wxSearch-button" size="mini" plain="true">搜索</button>
+  </view>
+</view>
+<!--轮播图-->
+<swiper autoplay>
+  <block wx:for="{{imgUrls}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image" mode="aspectFill"/>
+    </swiper-item>
+  </block>
+</swiper>
+<!--滚动视图，允许纵向滚动-->
+<scroll-view scroll-y="true" class="container">
+	<block wx:for="{{recommends}}" wx:for-item="song">
+  <!--点击歌曲准备试听事件playTap-->
+		<view class="block" data-id="{{song.id}}" bindtap="playTap">
+			<view class="left">
+				<image src="{{song.album.picUrl}}" mode="aspectFill"/>
+			</view>
+			<view class="right">
+				<view class="content">
+					<view>
+						<text class="song-name">{{song.name}}</text>	
+					</view>
+					<view>
+						<text class="song-artists">{{song.artists}} - {{song.album.name}}</text>
+					</view>
+				</view>
+				<view class="play">
+					<image src="../resource/images_bgm/more.png" mode="scaleToFill"/>
+				</view>
+			</view>
+		</view>	
+	</block>
+</scroll-view>

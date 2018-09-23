@@ -1,13 +1,17 @@
 {
-  "pages":[
+  "pages": [
+    "pages/bgm/bgm",
+    "pages/vedio/vedio",
     "pages/login/login",
-    "pages/index/index"    
+    "pages/index/index",
+    "pages/templay/templay",
+    "pages/search/search"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#CC3333",
     "navigationBarTitleText": "趣秀吧短视频",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "white"
   },
   "debug": true
 }

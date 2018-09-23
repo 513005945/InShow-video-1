@@ -9,18 +9,20 @@ App({
     wx.login({
       success: res => {
         if (res.code) {
-           //发起网络请求
-           console.log("啊可是大家啊可是大家干干净净"+res.code);
+          //发起网络请求
+          console.log("啊可是大家啊可是大家干干净净" + res.code);
           wx.request({
             // url: 'http://192.168.1.7:8081' + "/login",
-           // url: 'http://192.168.1.7:8081'+"/login2?js_code="+res.code,
+            // url: 'http://192.168.1.7:8081'+"/login2?js_code="+res.code,
             //data: {js_code:res.code,},
             url: 'http://192.168.1.7:8081' + "/bgm/getAll?page=0",
-            header: { 'content-type': 'application/x-www-form-urlencodeed'},
+            header: {
+              'content-type': 'application/x-www-form-urlencodeed'
+            },
             method: "POST",
             // url: that.globalData.wx_url_1 + res.code + that.globalData.wx_url_2,
             success: res => {
-             that.globalData.openid = res.data.openid;
+              that.globalData.openid = res.data.openid;
               console.log(res)
             }
           })
@@ -29,7 +31,14 @@ App({
         }
       }
     });
+
+
+
+   
   },
+
+ 
+
 
   /**
    * 设置全局变量

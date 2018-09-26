@@ -14,7 +14,7 @@
  
 .content {
     margin-left: 50rpx;
-    margin-bottom: 90rpx;
+    margin-bottom: 90rpx;           
 }
  
 .content text {

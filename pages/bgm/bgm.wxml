@@ -5,35 +5,55 @@
     <button class="wxSearch-button" size="mini" plain="true">搜索</button>
   </view>
 </view>
+
 <!--轮播图-->
 <swiper autoplay>
-  <block wx:for="{{imgUrls}}">
+  <block wx:for="{{imgUrls}}" wx:key="imgUrlsId">
     <swiper-item>
-      <image src="{{item}}" class="slide-image" mode="aspectFill"/>
+      <image src="{{item}}" class="slide-image" mode="aspectFill" />
     </swiper-item>
   </block>
 </swiper>
+
 <!--滚动视图，允许纵向滚动-->
 <scroll-view scroll-y="true" class="container">
-	<block wx:for="{{recommends}}" wx:for-item="song">
-  <!--点击歌曲准备试听事件playTap-->
-		<view class="block" data-id="{{song.id}}" bindtap="playTap">
-			<view class="left">
-				<image src="{{song.album.picUrl}}" mode="aspectFill"/>
-			</view>
-			<view class="right">
-				<view class="content">
-					<view>
-						<text class="song-name">{{song.name}}</text>	
-					</view>
-					<view>
-						<text class="song-artists">{{song.artists}} - {{song.album.name}}</text>
-					</view>
-				</view>
-				<view class="play">
-					<image src="../resource/images_bgm/more.png" mode="scaleToFill"/>
-				</view>
-			</view>
-		</view>	
-	</block>
+  <block wx:for="{{recommends}}" wx:for-item="song" wx:key="songId">
+
+    <!--点击歌曲准备试听事件playTap，根据歌曲的id显示如下-->
+    <view class="style1" data-id="{{song.id}}" bindtap="playTap">
+
+      <!--放置歌曲的图片-->
+      <view class="left">
+        <image src="{{song.album.picUrl}}" mode="aspectFill" />
+      </view>
+
+      <!--图片右边的模块-->        
+      <view class="right">
+        <view class="content">
+          <!--歌曲名字-->
+          <view>
+            <text class="song-name">{{song.name}}</text>
+          </view>
+          <!--作者名字，歌曲专辑名字-->
+          <view>
+            <text class="song-artists">{{song.artists}} - {{song.album.name}}</text>
+          </view>
+        </view>
+    
+        <view class="play">
+          <image catchtap='onMusicTap' data-id="{{song.id}}" mode="scaleToFill"  src="{{!song.show?'../resource/images_bgm/play.png':'../resource/images_bgm/pause.png'}}">
+          </image>
+        </view>
+
+      </view>
+
+
+    </view>
+
+    <button class="button"  wx:if="{{song.show}}">
+      确定使用并开拍
+    </button>
+   
+
+  </block>
 </scroll-view>

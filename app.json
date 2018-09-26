@@ -2,10 +2,8 @@
   "pages": [
     "pages/bgm/bgm",
     "pages/vedio/vedio",
-    "pages/login/login",
     "pages/index/index",
-    "pages/templay/templay",
-    "pages/search/search"
+    "pages/bgmsearch/bgmsearch"
   ],
   "window": {
     "backgroundTextStyle": "light",

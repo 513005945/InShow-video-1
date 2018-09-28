@@ -1,3 +1,4 @@
+/* pages/login/login.wxss */
 .header {
     margin: 90rpx 0 90rpx 50rpx;
     border-bottom: 1px solid #ccc;
@@ -14,7 +15,7 @@
  
 .content {
     margin-left: 50rpx;
-    margin-bottom: 90rpx;           
+    margin-bottom: 90rpx;
 }
  
 .content text {

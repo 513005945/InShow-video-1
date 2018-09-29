@@ -1,6 +1,8 @@
+var videoContextPrev, videoContext;
 Page({
   data: {
-    showView: false,
+    showView: true, //显示按钮开拍
+    play: true, //控制单曲播放
     chooseCount: 0,
     bgmList: [],
     serverUrl: "http://192.168.1.7:8081",
@@ -45,7 +47,7 @@ Page({
       url: 'http://192.168.1.7:8081/bgm/getAll',
       method: "POST",
       data: {
-        page: params.chooseCount,
+        page: that.data.chooseCount,
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded',
@@ -58,6 +60,7 @@ Page({
           var bgmList = res.data.data;
           that.setData({
             //设置bgm列表信息
+            itemId: bgmList[0].id,
             bgmList: bgmList
           });
           console.log("成功进来啦啦啦");
@@ -81,22 +84,95 @@ Page({
     var that = this;
     //获取bgmList的当前hide的按钮
     var toggleBtn = that.data.showView;
-    console.log("是否隐藏"+toggleBtn)
+    console.log("是否隐藏" + toggleBtn)
     var itemId = e.currentTarget.id;
-   
     if (toggleBtn == itemId) {
       that.setData({
         //showView: (!that.data.showView)
-         showView: 0
+        showView: 0
       })
     } else {
       that.setData({
-        //showView: (!that.data.showView)
         showView: itemId
       })
     }
+    try{
 
-  }
+      that.audioCtx = wx.createAudioContext(that.data.itemId)
+      that.audioCtx.pause();
+      that.setData({
+        itemId: itemId
+      })
+      setTimeout(function () {
+        that.n_audioCtx = wx.createAudioContext(itemId);
+        that.n_audioCtx.play();
+      }, 500)
+    }catch(e){}
+
+
+  },
+
+
+  // //音频播放  
+  // audioPlay: function(e) {
+  //   var that = this,
+  //     id = e.currentTarget.dataset.id,
+  //     key = e.currentTarget.dataset.key,
+  //     bgmList = that.data.bgmList,
+  //     vidSrc = bgmList[key].src;
+  //   // myaudio.src = vidSrc;
+  //   myaudio.autoplay = true;
+
+  //   //切换显示状态
+  //   for (var i = 0; i < bgmList.length; i++) {
+  //     bgmList[i].play = false;
+  //   }
+  //   bgmList[key].play = true;
+
+  //   //开始监听
+  //   myaudio.onPlay(() => {
+  //     that.setData({
+  //       bgmList: bgmList
+  //     })
+  //   })
+
+  //   //结束监听
+  //   myaudio.onEnded(() => {
+  //     bgmList[key].play = false;
+  //     that.setData({
+  //       bgmList: bgmList,
+  //     })
+  //   })
+
+  // },
+
+  // // 音频停止
+  // audioStop: function(e) {
+  //   var that = this,
+  //     key = e.currentTarget.dataset.key,
+  //     bgmList = that.data.bgmList;
+  //   //切换显示状态
+  //   for (var i = 0; i < bgmList.length; i++) {
+  //     bgmList[i].play = false;
+  //   }
+  //   bgmList[key].play = false;
+
+  //   myaudio.stop();
+  //   //停止监听
+  //   myaudio.onStop(() => {
+  //     bgmList[key].play = false;
+  //     that.setData({
+  //       bgmList: bgmList,
+  //     })
+  //   })
+  //   //结束监听
+  //   bgmList.onEnded(() => {
+  //     bgmList[key].play = false;
+  //     that.setData({
+  //       bgmList: bgmList,
+  //     })
+  //   })
+  // },
 
 
 

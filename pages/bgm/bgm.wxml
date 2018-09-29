@@ -19,20 +19,24 @@
 <scroll-view scroll-y="true" class="container">
 
   <view class="container">
-    <block wx:for="{{bgmList}}" wx:key="{{ListId}}">
+    <block wx:for="{{bgmList}}" wx:key="{{bgmListID}}">
       <!-- 这个view绑定了一个大大的事件 -->
       <view bindtap='toggleBtn' id="{{item.id}}">
+        <!--音频-->
         <view bindtap='onMusicTap'>
-          <!--音频-->
-          <audio data-id="{{item.id}}" data-index="{{item.index}}" name="{{item.name}}" author="{{item.author}}" src="{{serverUrl}}{{item.path}}" poster="{{poster}}" id="myAudio" chooseCount="{{chooseCount}}" style='width:300px' loop bindtimeupdate="audioPress"
-            bindtap='showButton' controls='{{true}}' loop>
-            <view bindtap='runing' data-id="{{item.id}}" wx:if="{{showView == item.id?'show':'hide'}}">
-              <progress percent="{{audioPress}}" stroke-width="2" />
+
+          <!-- 当前正在播放状态 -->
+          <audio bindtap='audioStop' id='{{item.id}}' data-id="{{item.id}}" data-key="{{item.key}}" data-play="{{item.play}}" name="{{item.name}}" author="{{item.author}}" src="{{serverUrl}}{{item.path}}" poster="{{poster}}" id="myAudio" chooseCount="{{chooseCount}}" style='width:300px'
+            loop bindtimeupdate="audioPress" bindtap='showButton' controls='{{true}}' loop>
+            <!-- 进度条 -->
+            <!-- <view bindtap='runing' data-id="{{item.id}}" wx:if="{{showView == item.id?'show':'hide'}}"> -->
+            <view>
+              <progress wx:if="{{showView == item.id}}" percent="{{audioPress}}" stroke-width="2" />
             </view>
           </audio>
         </view>
 
-        <view class="{{showView == item.id?'show':'hide'}}">
+        <view class="{{showView == item.id?'show':'hide'}}" bindtap="{{takingShot}}">
           <button class="button">确认并开拍</button>
         </view>
 

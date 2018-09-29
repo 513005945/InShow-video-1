@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/bgm/bgm",
+    "pages/login/login",
     "pages/vedio/vedio",
     "pages/index/index",
     "pages/bgmsearch/bgmsearch"

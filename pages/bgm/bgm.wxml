@@ -17,43 +17,27 @@
 
 <!--滚动视图，允许纵向滚动-->
 <scroll-view scroll-y="true" class="container">
-  <block wx:for="{{recommends}}" wx:for-item="song" wx:key="songId">
 
-    <!--点击歌曲准备试听事件playTap，根据歌曲的id显示如下-->
-    <view class="style1" data-id="{{song.id}}" bindtap="playTap">
-
-      <!--放置歌曲的图片-->
-      <view class="left">
-        <image src="{{song.album.picUrl}}" mode="aspectFill" />
-      </view>
-
-      <!--图片右边的模块-->        
-      <view class="right">
-        <view class="content">
-          <!--歌曲名字-->
-          <view>
-            <text class="song-name">{{song.name}}</text>
-          </view>
-          <!--作者名字，歌曲专辑名字-->
-          <view>
-            <text class="song-artists">{{song.artists}} - {{song.album.name}}</text>
-          </view>
+  <view class="container">
+    <block wx:for="{{bgmList}}" wx:key="{{ListId}}">
+      <!-- 这个view绑定了一个大大的事件 -->
+      <view bindtap='toggleBtn' id="{{item.id}}">
+        <view bindtap='onMusicTap'>
+          <!--音频-->
+          <audio data-id="{{item.id}}" data-index="{{item.index}}" name="{{item.name}}" author="{{item.author}}" src="{{serverUrl}}{{item.path}}" poster="{{poster}}" id="myAudio" chooseCount="{{chooseCount}}" style='width:300px' loop bindtimeupdate="audioPress"
+            bindtap='showButton' controls='{{true}}' loop>
+            <view bindtap='runing' data-id="{{item.id}}" wx:if="{{showView == item.id?'show':'hide'}}">
+              <progress percent="{{audioPress}}" stroke-width="2" />
+            </view>
+          </audio>
         </view>
-    
-        <view class="play">
-          <image catchtap='onMusicTap' data-id="{{song.id}}" mode="scaleToFill"  src="{{!song.show?'../resource/images_bgm/play.png':'../resource/images_bgm/pause.png'}}">
-          </image>
+
+        <view class="{{showView == item.id?'show':'hide'}}">
+          <button class="button">确认并开拍</button>
         </view>
 
       </view>
+    </block>
+  </view>
 
-
-    </view>
-
-    <button class="button"  wx:if="{{song.show}}">
-      确定使用并开拍
-    </button>
-   
-
-  </block>
 </scroll-view>

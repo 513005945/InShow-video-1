@@ -1,10 +1,13 @@
 {
   "pages": [
-    "pages/bgm/bgm",
     "pages/login/login",
     "pages/vedio/vedio",
+    "pages/chooseBgm/chooseBgm",
+   
+    "pages/ReleaseVideo/ReleaseVideo",
     "pages/index/index",
     "pages/bgmsearch/bgmsearch"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -13,4 +16,4 @@
     "navigationBarTextStyle": "white"
   },
   "debug": true
-}
+} 

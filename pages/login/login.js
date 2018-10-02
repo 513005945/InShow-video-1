@@ -1,5 +1,6 @@
 var test = getApp().globalData.test;
-console.log(test)
+var serverUrl = getApp().serverUrl;
+
 
 Page({
   data: {
@@ -7,7 +8,8 @@ Page({
     appSecret: "76d8c34dde69c14683bfc7519636900a",
     appID: "wxa35bbd6556297ebd",
     //判断小程序的API，回调，参数，组件等是否在当前版本可用。
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+   // serverUrl: serverUrl
   },
   bindGetUserInfo: function() {
     var me = this;
@@ -21,7 +23,7 @@ Page({
             var rawd = res.rawData;
 
             wx.request({
-              url: 'http://192.168.1.7:8081/login/login',
+              url: serverUrl+'/login/login',
               data: {
                 js_code: js_code,
                 rawsData: rawd,
@@ -35,7 +37,7 @@ Page({
               success: function(res) {
                 console.log("------------" + js_code);
                 console.log("------------" + rawd);
-                console.log("--------------secess");
+                console.log("--------------登陆成功o(*￣▽￣*)o");
               }
             })
             //do anything
@@ -44,7 +46,7 @@ Page({
         });
         //授权成功后就跳转
         wx.navigateTo({
-          url: '../bgm/bgm'
+          url: '../vedio/vedio'
         })
       }
     })

@@ -1,0 +1,44 @@
+
+<!--搜索框部分-->
+<view class="wxSearch-section" bindtap='sousuo'>
+  <view class="wxSearch-pancel">
+    <input class="wxSearch-input" placeholder="搜索" />
+    <button class="wxSearch-button" size="mini" plain="true">搜索</button>
+  </view>
+</view>
+
+<!--轮播图-->
+<swiper autoplay>
+  <block wx:for="{{imgUrls}}" wx:key="imgUrlsId">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image" mode="aspectFill" />
+    </swiper-item>
+  </block>
+</swiper>
+
+<!--滚动视图，允许纵向滚动-->
+<scroll-view scroll-y="true" class="container">
+  <!-- <view class="container"> -->
+ 
+    <block wx:for="{{bgmList}}" wx:key="{{bgmListID}}">
+      <!-- 这个view绑定了一个大大的事件 -->
+      <view bindtap='toggleBtn' id="{{item.id}}" >
+        <audio bindtap='audioStop' id='{{item.id}}' data-id="{{item.id}}" data-key="{{item.key}}" data-play="{{item.play}}" name="{{item.name}}" author="{{item.author}}" src="{{serverUrl}}{{item.path}}" data-poster="{{poster}}" id="myAudio" chooseCount="{{chooseCount}}"
+          style='width:300px' loop bindtimeupdate="audioPress" bindtap='showButton' controls='{{true}}' loop>
+          <!-- 进度条 -->
+          <!-- <view bindtap='runing' data-id="{{item.id}}" wx:if="{{showView == item.id?'show':'hide'}}"> -->
+          <view>
+            <progress wx:if="{{showView == item.id}}" percent="{{audioPress}}" stroke-width="2" />
+          </view>
+        </audio>
+      </view>
+      <!-- <view class="{{showView == item.id?'show':'hide'}}" >
+        <button class="button" bindtap='{{uploadBtn}}'>确认并开拍</button>
+      </view> -->
+      <view wx:if="{{showView == item.id}}">
+        <button class="button" bindtap='uploadBtn'>确认并开拍</button>
+      </view>
+    </block>
+    <!-- </view> -->
+  
+</scroll-view>

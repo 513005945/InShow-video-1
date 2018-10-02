@@ -32,7 +32,7 @@ Page({
             duration: 2500
           })
         } 
-        /*else {
+        else {
           // 打开选择bgm的页面
           wx.navigateTo({
             url: '../chooseBgm/chooseBgm?duration=' + duration +
@@ -41,7 +41,7 @@ Page({
               "&tmpVideoUrl=" + tmpVideoUrl +
               "&tmpCoverUrl=" + tmpCoverUrl,
           })
-        }*/
+        }
 
       }
     })

@@ -1,13 +1,19 @@
 {
   "pages": [
+
+    "pages/index/index",
+      "pages/vedioInfo/vedioInfo",
+    
+    "pages/ReleaseVideo/ReleaseVideo",
+    "pages/bgmsearch/bgmsearch",
     "pages/login/login",
     "pages/vedio/vedio",
     "pages/chooseBgm/chooseBgm",
-   
-    "pages/ReleaseVideo/ReleaseVideo",
-    "pages/index/index",
-    "pages/bgmsearch/bgmsearch"
-    
+    "pages/classify/classify",
+    "pages/news/news",
+    "pages/mine/mine",
+    "pages/vedioList/vedioList",
+    "pages/vedioSearch/vedioSearch"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -15,5 +21,43 @@
     "navigationBarTitleText": "趣秀吧短视频",
     "navigationBarTextStyle": "white"
   },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#CC3333",
+    "borderStyle": "#FFFFFF",
+    "backgroundColor": "#fcfbfb",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "pages/resource/images_nav/home.png",
+        "selectedIconPath": "pages/resource/images_nav/home1.png"
+      },
+      {
+        "pagePath": "pages/classify/classify",
+        "text": "主题",
+        "iconPath": "pages/resource/images_nav/主题.png",
+        "selectedIconPath": "pages/resource/images_nav/主题1.png"
+      },
+      {
+        "pagePath": "pages/vedio/vedio",
+        "text": "拍摄",
+        "iconPath": "pages/resource/images_nav/拍摄.png",
+        "selectedIconPath": "pages/resource/images_nav/拍摄1.png"
+      },
+      {
+        "pagePath": "pages/news/news",
+        "text": "消息",
+        "iconPath": "pages/resource/images_nav/消息.png",
+        "selectedIconPath": "pages/resource/images_nav/消息1.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "pages/resource/images_nav/我的.png",
+        "selectedIconPath": "pages/resource/images_nav/我的1.png"
+      }
+    ]
+  },
   "debug": true
-} 
+}

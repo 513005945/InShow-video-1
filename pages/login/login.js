@@ -11,6 +11,10 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
    // serverUrl: serverUrl
   },
+  //在这里设置重定向的拦截
+  onLoad:function(params){
+      
+  },
   bindGetUserInfo: function() {
     var me = this;
     wx.login({
@@ -45,8 +49,9 @@ Page({
           fail: me.showPrePage
         });
         //授权成功后就跳转
-        wx.navigateTo({
-          url: '../vedio/vedio'
+       // wx.navigateTo({
+        wx.switchTab({
+          url: '../index/index'
         })
       }
     })

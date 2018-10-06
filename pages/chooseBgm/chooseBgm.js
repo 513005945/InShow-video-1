@@ -9,6 +9,7 @@ Page({
     bgmList: [],
     serverUrl: serverUrl,
     videoParams: {},
+    audioCtx: {},
     poster: "http://p4.music.126.net/tUapZaR1iT5XTX2QcAc0DA==/96757023257715.jpg",
     /**轮播图 */
     imgUrls: [
@@ -33,6 +34,7 @@ Page({
   },
 
 
+
   onLoad: function(params) {
     var that = this;
     console.log("假按揭发酒疯" + params);
@@ -43,6 +45,7 @@ Page({
       title: '请等待...',
     });
 
+    that.audioCtx = wx.createAudioContext("id", that)
     var user = getApp().getGlobalUserInfo();
 
     // 调用后端
@@ -122,6 +125,8 @@ Page({
     // console.log("desc:" + desc);
 
     //TODO：点击上传按钮后得保证歌不是播放状态的————————bug暂存
+    wx.getBackgroundAudioManager().stop();
+
     var duration = me.data.videoParams.duration;
     var tmpHeight = me.data.videoParams.tmpHeight;
     var tmpWidth = me.data.videoParams.tmpWidth;
@@ -171,7 +176,8 @@ Page({
           // })
 
 
-          wx.navigateTo({
+          //wx.navigateTo({
+          wx.switchTab({
             url: '../index/index',
           })
         } else if (res.data.status == 502) {
@@ -193,5 +199,8 @@ Page({
 
       }
     })
+  },
+  onHide: function() {
+    that.audioCtx.pause();//跳转到新的页面后，歌曲就暂停
   }
 })

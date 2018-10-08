@@ -2,8 +2,6 @@ var videoUtil = require('../../utils/vedioUtil.js')
 var serverUrl = getApp().serverUrl;
 var userId = getApp().globalData.userId;
 
-
-
 Page({
   data: {
     cover: "cover",
@@ -11,7 +9,8 @@ Page({
     src: "",
     videoInfo: {},
     sercerUrl: serverUrl,
-    userLikeVideo: false
+    //userLikeVideo: false,//收藏事件
+    // userClickvideo:false //点赞事件
   },
   videoCtx: {},
 
@@ -23,7 +22,6 @@ Page({
     //获取上一个页面传入的参数
     var videoInfo = JSON.parse(params.videoInfo);
     //debugger;
-
     var Height = videoInfo.videoHeight;
     var Width = videoInfo.videoWidth;
     var cover = "cover"; //默认的cover
@@ -39,6 +37,27 @@ Page({
       cover: cover
     });
 
+    var loginUserId = "";
+    loginUserId = userId;
+    //退出到视频展示页，依旧能显示点赞的信息
+    wx.request({
+      url: serverUrl + '/user/qureyPublisher?loginuserId=' + loginUserId + '&videoId=' + videoInfo.id + '&publisherId=' + videoInfo.userId,
+      method: 'POST',
+      success: function(res) {
+        var publisher = res.data.data.publisher;
+        var userClickvideo = res.data.data.userClickvideo;
+        console.log("-1-1-1-1-1-"+JSON.stringify(res));
+        console.log("-------publisher打印----" + JSON.stringify(publisher));
+        console.log("-------userClickvideo打印------" + userClickvideo)
+
+        that.setData({
+          serverUrl: serverUrl,
+          publisher: publisher,
+          userClickvideo: userClickvideo
+        });
+
+      }
+    })
 
 
 
@@ -50,8 +69,7 @@ Page({
     })
   },
   upload: function() {
-    var user = getApp().getGlobalUserInfo();
-
+    //var user = getApp().getGlobalUserInfo();
     //如果用户不是登陆状态的，就跳转到登陆页面
     // if(user== null || user == undefined || user == ''){
     //   wx.navigateTo({
@@ -61,7 +79,6 @@ Page({
     //   videoUtil.uploadVideo();
     // }
     videoUtil.uploadVideo();
-
   },
 
   //主页按钮
@@ -85,37 +102,36 @@ Page({
   likeVideoOrNot: function() {
     var that = this;
     var videoInfo = that.data.videoInfo;
-
-    // var user = getApp().getGlobalUserInfo();
-    // console.log("这个userId打印出来啥子玩意儿" + user.id)
-
-    var userLikeVideo = that.data.userLikeVideo
+    var userClickvideo = that.data.userClickvideo
+    console.log("我这里进来就已经是" + userClickvideo)
     var url = '/video/userClickvideo?userId=' + userId + '&videoId=' + videoInfo.id;
-    if (userLikeVideo) {
-      var url = '/video/userUnClickvideo?userId=' + userId + '&videoId=' + videoInfo.id ;
-      //+ '&publisherId' + videoInfo.userId
+    //如果userClickvideo已经是点了赞的状态了，就取消赞
+    if (userClickvideo) {
+      var url = '/video/userUnclickVideo?userId=' + userId + '&videoId=' + videoInfo.id + '&publisherId=' + videoInfo.userId;
     }
-    console.log(url);
     wx.showLoading({
       title: '...',
     })
     wx.request({
-      url: serverUrl + '/video/userClickvideo',
+      //url: serverUrl + '/video/userClickvideo',
+      url: serverUrl + url,
       method: 'POST',
-      data: {
-        userId: userId,
-        videoId: videoInfo.id
-      },
+      // data: {
+      //   userId: userId,
+      //   videoId: videoInfo.id
+      // },
       header: {
         'content-type': 'application/x-www-form-urlencoded',
-        //'content-type': 'application/json',
       },
       success: function(res) {
         wx.hideLoading();
+
         that.setData({
-          userLikeVideo: !userLikeVideo
+          userClickvideo: !userClickvideo
         });
+
       }
+
     })
   }
 

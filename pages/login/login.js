@@ -16,35 +16,19 @@ Page({
   //在这里设置重定向的拦截
   onLoad: function(params) {
     var that = this;
-    // app.setGlobalUserInfo(function(userInfo) {
-    //   //更新数据
-    //   that.setData({
-    //     userInfo: app.globalData.userInfo
-    //   })
-    //   console.log(that.data.userInfo, '---------userinfo')
-    // })
-
     that.setData({
       userInfo: app.globalData.userInfo
     })
   },
-
 
   bindGetUserInfo: function() {
     var me = this;
     wx.login({
       success: function(res) {
         var js_code = res.code;
-        console.log("111打印打印打印res  " + res.data);
-        // console.log("222打印打印打印res  " + res.userInfo)
-        // console.log("333打印打印打印res  " + JSON.parse(res.data))
-        // console.log("444打印打印打印res  " + getApp().setGlobalUserInfo(res.data))
-
         wx.getUserInfo({
           success: function(res) {
-            //me.globalData.userInfo = res.userInfo,
-            console.log("------------------" + res.rawData);
-            console.log("222打印打印打印res  " + res.userInfo.nickName);
+          //  console.log("------------------" + res.rawData);
             app.globalData.userInfo = res.userInfo;
             var rawd = res.rawData;
             wx.request({
@@ -65,16 +49,7 @@ Page({
                 console.log("------------" + js_code);
                 console.log("------------" + rawd);
                 console.log("--------------登陆成功o(*￣▽￣*)o");
-                app.globalData.userId = res.userId;
-                // console.log("-------------" + app.setGlobalUserInfo(res.data.data));
-                // app.getGlobalUserInfo(function(userInfo) {
-                //   //更新数据
-                //   that.setData({
-                //     userInfo: app.globalData.userInfo
-                //   })
-                //   console.log(that.data.userInfo, '---------userinfo')
-                // })
-
+              //  app.globalData.userId = res.userId;
                 wx.switchTab({
                   url: '../index/index'
                 })
@@ -89,10 +64,6 @@ Page({
           },
           fail: me.showPrePage
         });
-
-        //授权成功后就跳转
-        // wx.navigateTo({
-
       }
     })
   },

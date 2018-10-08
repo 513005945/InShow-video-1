@@ -1,6 +1,7 @@
 {
   "pages": [
     
+  
     "pages/index/index",
     "pages/vedioInfo/vedioInfo",
     "pages/ReleaseVideo/ReleaseVideo",

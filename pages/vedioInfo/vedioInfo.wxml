@@ -19,11 +19,12 @@
 
     <cover-view class='container-me'>
       <!-- 头像 -->
-      <cover-image class="face" src='{{serverUrl}}{{publisher.faceImage}}' bindtap='showPublisher'></cover-image>
+      <!-- {{serverUrl}}{{publisher.faceImage}} 头像的图片先写死-->
+      <cover-image class="face" src='{{publisher.avatarurl}}' bindtap='showPublisher'></cover-image>
 
 
-      <!-- 喜欢收藏按钮 -->
-      <block wx:if="{{userLikeVideo}}">
+      <!----点赞按钮 -->
+      <block wx:if="{{userClickvideo}}">
         <cover-image class="size-me" src='../resource/images/like.png' style='margin-top:30rpx;' bindtap='likeVideoOrNot'></cover-image>
       </block>
       <block wx:else>
@@ -42,8 +43,8 @@
     <cover-view class='container-words'>
 
       <cover-view>@{{publisher.nickname}}</cover-view>
-
       <cover-view class='video-desc'>{{videoInfo.videoDesc}}</cover-view>
+      <cover-view class='video-topic' wx:if="{{videoInfo.topicName != false}}">主题:{{videoInfo.topicName}}</cover-view>
 
 
 

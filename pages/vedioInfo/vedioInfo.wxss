@@ -38,6 +38,10 @@ page {
     white-space: pre-wrap;
 }
 
+.video-topic{
+   white-space: pre-wrap;
+}
+
 .container-bottom {
     /* bottom: 10px;  */
     display: flex;

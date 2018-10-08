@@ -35,6 +35,7 @@ Page({
       src: serverUrl + videoInfo.videoPath,
       videoInfo: videoInfo,
       cover: cover
+
     });
 
     var loginUserId = "";
@@ -46,7 +47,7 @@ Page({
       success: function(res) {
         var publisher = res.data.data.publisher;
         var userClickvideo = res.data.data.userClickvideo;
-        console.log("-1-1-1-1-1-"+JSON.stringify(res));
+        console.log("-1-1-1-1-1-" + JSON.stringify(res));
         console.log("-------publisher打印----" + JSON.stringify(publisher));
         console.log("-------userClickvideo打印------" + userClickvideo)
 
@@ -69,15 +70,6 @@ Page({
     })
   },
   upload: function() {
-    //var user = getApp().getGlobalUserInfo();
-    //如果用户不是登陆状态的，就跳转到登陆页面
-    // if(user== null || user == undefined || user == ''){
-    //   wx.navigateTo({
-    //     url: '../login/login',
-    //   })
-    // }else{
-    //   videoUtil.uploadVideo();
-    // }
     videoUtil.uploadVideo();
   },
 
@@ -132,6 +124,16 @@ Page({
 
       }
 
+    })
+  },
+
+  //用户详情页的
+  showPublisher: function() {
+    var that = this;
+    var videoInfo = that.data.videoInfo;
+    console.log("*-*-*-*-videoInfo*--*-*--" + JSON.stringify(videoInfo));
+    wx.switchTab({
+      url: '../mine/mine?publisherId='+videoInfo.userId,
     })
   }
 

@@ -18,7 +18,7 @@
 
 
     <cover-view class='container-me'>
-      <!-- 头像 -->
+      <!-- 点击头像进入用户详情页 -->
       <!-- {{serverUrl}}{{publisher.faceImage}} 头像的图片先写死-->
       <cover-image class="face" src='{{publisher.avatarurl}}' bindtap='showPublisher'></cover-image>
 
@@ -44,7 +44,7 @@
 
       <cover-view>@{{publisher.nickname}}</cover-view>
       <cover-view class='video-desc'>{{videoInfo.videoDesc}}</cover-view>
-      <cover-view class='video-topic' wx:if="{{videoInfo.topicName != false}}">主题:{{videoInfo.topicName}}</cover-view>
+      <cover-view class='video-topic' wx:if="{{videoInfo.topicName != null}}">主题:{{videoInfo.topicName}}</cover-view>
 
 
 

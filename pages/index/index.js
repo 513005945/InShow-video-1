@@ -1,4 +1,5 @@
 const app = getApp()
+var user = app.globalData.userInfo;
 
 Page({
   data: {
@@ -14,6 +15,7 @@ Page({
   },
 
   onLoad: function(params) {
+    console.log("---++++----+++--" + app.globalData.userInfo.nickName)
     var me = this;
     //设置屏幕尺寸适应边框问题
     var screenWidth = wx.getSystemInfoSync().screenWidth;

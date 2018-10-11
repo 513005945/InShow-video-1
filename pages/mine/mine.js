@@ -9,7 +9,8 @@ var likeVideoListows;
 Page({
   data: {
     serverUrl: serverUrl,
-
+    isMe: true,
+    isFollow: true, //默认未关注
     videoSelClass: "video-info",
     isSelectedWork: "video-info-selected",
     isSelectedLike: "",
@@ -45,15 +46,32 @@ Page({
     wx.showLoading();
     var user = app.getGlobalUserInfo()
     var userId = app.globalData.userId;
-    console.log(userId);
     var serverUrl = app.serverUrl;
+
+    // //在跳转前的页面设置了一个全局变量，在这里直接获取全局
+    // var publisherId = getApp().globalData.publisherId;
+    // console.log("就是来打印发布者的id-----" + publisherId)
+    // //如果传入的 publisherId 不为空，就说明进入的用户详情页
+    // if (publisherId != null && publisherId != '' && publisherId != undefined) {
+    //   userId = publisherId;
+    //   me.setData({
+    //     isMe: false,
+    //     publisherId: publisherId,
+    //     serverUrl: serverUrl
+    //   })
+    // }
+    // me.setData({
+    //   userId: userId
+    // })
+
+    wx.showLoading({
+      title: '请等待...',
+    })
+
     //请求个人简介
     wx.request({
       url: serverUrl + '/user/query?userId=' + userId,
       method: "POST",
-      // data: {
-      //   userID: '18092868HFHRN4DP'
-      // },
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
@@ -264,5 +282,44 @@ Page({
       url: '../vedioInfo/vedioInfo?videoInfo=' + videoInfo
 
     })
-  }
+  },
+  //点击关注按钮
+  // followMe: function(e) {
+  //   var that = this;
+  //   var userId = getApp().globalData.userId;
+
+  //   var publisherId = getApp().globalData.publisherId;
+  //   console.log("关注页面打印发布者的id-----" + publisherId)
+  //   console.log("关注页面打印发布者的e-----" + e.currentTarget.dataset.followtype)
+  //   var followType = e.currentTarget.dataset.followtype; //followtype要小写的
+
+  //   var url = '';
+  //   if (followType == '1') {
+  //     url = '/user/fanspick?followId=' + publisherId + '&userId=' + userId;
+  //   } else {
+  //     url = '/user/fansUnpick?userId=' + userId + '&followId=' + publisherId;
+  //   }
+
+  //   wx.showLoading();
+  //   wx.request({
+  //     url: serverUrl + url,
+  //     method: 'POST',
+  //     header: {
+  //       'content-type': 'application/x-www-form-urlencoded',
+  //     },
+  //     success: function() {
+  //       wx.hideLoading();
+  //       if (followType == '1') {
+  //         that.setData({
+  //           isFollow: true,
+  //         })
+  //       } else {
+  //         that.setData({
+  //           isFollow: false,
+  //         })
+  //       }
+  //     }
+  //   })
+
+  // }
 })

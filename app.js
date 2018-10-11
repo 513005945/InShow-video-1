@@ -1,6 +1,5 @@
 App({
   serverUrl: "http://192.168.1.7:8081",
-  //serverUrl: "http://localhost:8081",
   //serverUrl: "http://10.87.5.24:8081",
 
   setGlobalUserInfo: function(user) {
@@ -13,6 +12,7 @@ App({
 
   globalData: {
     test: "test",
+    publisherId: "",
     userInfo: {
       "nickName": "-辣条兽",
       "gender": 1,

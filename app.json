@@ -1,7 +1,5 @@
 {
   "pages": [
-    
-  
     "pages/index/index",
     "pages/vedioInfo/vedioInfo",
     "pages/ReleaseVideo/ReleaseVideo",
@@ -13,7 +11,8 @@
     "pages/news/news",
     "pages/mine/mine",
     "pages/vedioList/vedioList",
-    "pages/vedioSearch/vedioSearch"
+    "pages/vedioSearch/vedioSearch",
+    "pages/userInfo/userInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",

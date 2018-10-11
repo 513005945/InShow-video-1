@@ -10,12 +10,12 @@ Page({
     videoInfo: {},
     sercerUrl: serverUrl,
     //userLikeVideo: false,//收藏事件
-    // userClickvideo:false //点赞事件
+    userClickvideo:false //点赞事件
   },
   videoCtx: {},
 
   onLoad: function(params) {
-
+    
     // 点击视频列表进入视频详情
     var that = this;
     that.videoCtx = wx.createVideoContext("myVideo", that)
@@ -47,14 +47,16 @@ Page({
       success: function(res) {
         var publisher = res.data.data.publisher;
         var userClickvideo = res.data.data.userClickvideo;
-        console.log("-1-1-1-1-1-" + JSON.stringify(res));
-        console.log("-------publisher打印----" + JSON.stringify(publisher));
-        console.log("-------userClickvideo打印------" + userClickvideo)
+       // var fansPickuser = res.data.data.fansPickuser;
+        // console.log("-1-1-1-1-1-" + JSON.stringify(res));
+        //  console.log("-------publisher打印----" + JSON.stringify(publisher));
+        // console.log("-------userClickvideo打印------" + userClickvideo)
 
         that.setData({
           serverUrl: serverUrl,
           publisher: publisher,
-          userClickvideo: userClickvideo
+          userClickvideo: userClickvideo,
+          //fansPickuser: fansPickuser
         });
 
       }
@@ -127,13 +129,19 @@ Page({
     })
   },
 
-  //用户详情页的
+  //用户详情页的,点击头像跳转
   showPublisher: function() {
     var that = this;
     var videoInfo = that.data.videoInfo;
-    console.log("*-*-*-*-videoInfo*--*-*--" + JSON.stringify(videoInfo));
-    wx.switchTab({
-      url: '../mine/mine?publisherId='+videoInfo.userId,
+    var fansPickuser = that.data.fansPickuser;
+   // console.log("*-*-*-*-videoInfo*--*-*--" + JSON.stringify(videoInfo));
+    console.log("打印发布者的id---"+videoInfo.userId)
+    console.log("关注标记："+fansPickuser)
+    //getApp().globalData.publisherId = videoInfo.userId;
+    wx.navigateTo({
+      //url: '../mine/mine?publisherId=' + videoInfo.userId,
+      url: '../userInfo/userInfo?publisherId=' + videoInfo.userId + "&isFollow=" + fansPickuser +'&videoInfo=' + videoInfo,
+     
     })
   }
 

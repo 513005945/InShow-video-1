@@ -40,7 +40,7 @@
         <label>城市 : {{item.city}}</label>
         </view>
         </view>
-        <image class="two" src='../resource/images/timg2.jpg'></image>
+        <image class="two" src='../resource/images/cardbg.jpg'></image>
         </view>
     </block>
 </view>

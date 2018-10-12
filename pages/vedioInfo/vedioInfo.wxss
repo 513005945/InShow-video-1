@@ -12,7 +12,7 @@ page {
 }
 
 .container-me {
-    margin-top: 360rpx;
+    margin-top: 250rpx;
     margin-left: 50rpx;
     width: 80rpx;
 }

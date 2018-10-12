@@ -14,7 +14,7 @@ Page({
   },
   videoCtx: {},
 
-  onLoad: function (params) {
+  onLoad: function(params) {
 
     // 点击视频列表进入视频详情
     var that = this;
@@ -44,7 +44,7 @@ Page({
     wx.request({
       url: serverUrl + '/user/qureyPublisher?loginuserId=' + loginUserId + '&videoId=' + videoInfo.id + '&publisherId=' + videoInfo.userId,
       method: 'POST',
-      success: function (res) {
+      success: function(res) {
         console.log("ajkjkj8997787878----" + JSON.stringify(res.data.data))
         var publisher = res.data.data.publisher;
         console.log("papi酱==========" + res.data.data)
@@ -69,34 +69,34 @@ Page({
 
   },
 
-  showSearch: function () {
+  showSearch: function() {
     wx.navigateTo({
       url: '../vedioSearch/vedioSearch',
     })
   },
-  upload: function () {
+  upload: function() {
     videoUtil.uploadVideo();
   },
 
   //主页按钮
-  showIndex: function () {
+  showIndex: function() {
     console.log("我真的进来了的"),
       wx.switchTab({
         url: '../index/index',
       })
   },
 
-  onShow: function () {
+  onShow: function() {
     var that = this;
     that.videoCtx.play();
   },
-  onHide: function () {
+  onHide: function() {
     var that = this;
     that.videoCtx.pause();
   },
 
   //点赞按钮
-  ClickVideoOrNot: function () {
+  ClickVideoOrNot: function() {
     var that = this;
     var videoInfo = that.data.videoInfo;
     var userClickvideo = that.data.userClickvideo
@@ -120,7 +120,7 @@ Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
-      success: function (res) {
+      success: function(res) {
         wx.hideLoading();
 
         that.setData({
@@ -133,7 +133,7 @@ Page({
   },
 
   //用户详情页的,点击头像跳转
-  showPublisher: function () {
+  showPublisher: function() {
     var that = this;
     var videoInfo = that.data.videoInfo;
     var fansPickuser = that.data.fansPickuser;
@@ -150,7 +150,7 @@ Page({
 
 
   //收藏作品
-  LikeVideoOrNot: function () {
+  LikeVideoOrNot: function() {
     var that = this;
     var videoInfo = that.data.videoInfo;
     var userLikevideo = that.data.userLikevideo;
@@ -172,7 +172,7 @@ Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded',
       },
-      success: function (res) {
+      success: function(res) {
         wx.hideLoading();
         that.setData({
           userLikevideo: !userLikevideo,
@@ -180,11 +180,18 @@ Page({
         console.log("取反之后：" + userLikevideo)
       }
     })
-
-
-
-
-
+  },
+  //点击举报按钮后跳转
+  report: function() {
+    var that = this;
+    var videoInfo = JSON.stringify(that.data.videoInfo)
+    var videoId = that.data.videoInfo.id;
+   
+    var publisherId = that.data.videoInfo.userId;
+    //console.log("恩过来打印打印999999999999--" + videoInfo)
+    wx.navigateTo({
+      url: '../report/report?videoId=' + videoId + '&publisherId=' + publisherId,
+    })
   }
 
 

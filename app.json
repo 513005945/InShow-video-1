@@ -12,7 +12,8 @@
     "pages/mine/mine",
     "pages/vedioList/vedioList",
     "pages/vedioSearch/vedioSearch",
-    "pages/userInfo/userInfo"
+    "pages/userInfo/userInfo",
+    "pages/report/report"
   ],
   "window": {
     "backgroundTextStyle": "light",

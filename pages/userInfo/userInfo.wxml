@@ -36,11 +36,14 @@
 </view>
 
 <view class='container-video-list'>
+  <!-- 作品 -->
   <view hidden='{{myWorkFalg}}'>
     <block wx:for="{{myVideoList}}">
       <image src='{{serverUrl}}{{item.coverPath}}' class='videoImage' mode="aspectFill" bindtap='showVideoInfo' data-arrindex='{{index}}'></image>
     </block>
   </view>
+  
+  <!--收藏 -->
   <view hidden='{{myLikesFalg}}'>
     <block wx:for="{{likeVideoList}}">
       <image src='{{serverUrl}}{{item.coverPath}}' class='videoImage' mode="aspectFill" bindtap='showVideoInfo' data-arrindex='{{index}}'></image>

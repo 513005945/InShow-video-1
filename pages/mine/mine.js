@@ -101,7 +101,7 @@ Page({
 
   },
 
-//作品
+  //作品
   doSelectWork: function() {
     this.setData({
       isSelectedWork: "video-info-selected",
@@ -279,8 +279,7 @@ Page({
     console.log("视频信息叻" + videoInfo)
     wx.redirectTo({
       url: '../vedioInfo/vedioInfo?videoInfo=' + videoInfo
-
     })
   },
-  
+
 })

@@ -19,9 +19,9 @@ Page({
         var tmpVideoUrl = res.tempFilePath;
         var tmpCoverUrl = res.thumbTempFilePath;
 
-        if (duration > 19) {
+        if (duration > 31) {
           wx.showToast({
-            title: '视频长度不能超过17秒...',
+            title: '视频长度不能超过30秒...',
             icon: "none",
             duration: 2500
           })

@@ -1,3 +1,4 @@
+var Turnfile = require('../../utils/station_name.js')
 //获取应用实例
 const app = getApp()
 var serverUrl = app.serverUrl;
@@ -78,13 +79,13 @@ Page({
         that.setData({
           isFollow: userInfo.fansPickuser,
           avatarurl: userInfo.avatarurl,
-          city: userInfo.city,
-          country: userInfo.country,
+          city: Turnfile.getname(userInfo.city),
+          country: Turnfile.getname(userInfo.country),
           gender: userInfo.gender,
           id: userInfo.id,
           nickname: userInfo.nickname,
           openid: userInfo.openid,
-          province: userInfo.province,
+          province: Turnfile.getname(userInfo.province),
           reportCounts: userInfo.reportCounts,
           username: userInfo.username,
           fansCounts: userInfo.fansCounts,
@@ -94,6 +95,7 @@ Page({
         // console.log("2632366366_____"+that.data.isFollow)
       },
     })
+    that.getMyVideoList(1);
   },
 
   //关注与取消关注的按钮

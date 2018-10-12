@@ -1,6 +1,6 @@
 <view class='add_btn'>
   <view class='style1'>
-    <button class='btn1' bindtap="camera" type="primary" data-type="chooseVideo">录制视频</button>
+    <button class='btn1' bindtap="camera" type="primary" data-type="capturingvideo">录制视频</button>
     <button class='btn2' bindtap="uploadVideo" type="primary" data-type="chooseVideo">本地视频</button>
   </view>
 </view>

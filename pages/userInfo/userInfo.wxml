@@ -4,8 +4,15 @@
       <image class="face" src='{{avatarurl}}' bindtap='changFace'></image>
       <label class='nickname'>{{nickname}}</label>
     </block>
-    <view class='selfInfo' style="background:url(../resource/images/bgphoto2.jpg) no-repeat;background-size:100% 100%;">
+    <!-- <view class='selfInfo' style="background:url(../resource/images/bgphoto2.jpg) no-repeat;background-size:100% 100%;">
       <textarea disabled='true' class='selfinfo'></textarea>
+    </view> -->
+    <view class='selfinfo' style="background:url(../resource/images/cardbg.jpg) no-repeat;background-size:100% 100%;">
+      <label class='userinfo-laber'>ID : {{id}}</label>
+      <label class='userinfo-laber'>国家 : {{country}}</label>
+      <label class='userinfo-laber'>省份 : {{province}}</label>
+      <label class='userinfo-laber'>城市 : {{city}}</label>
+
     </view>
 
     <block wx:if="{{!isMe}}">
@@ -42,7 +49,7 @@
       <image src='{{serverUrl}}{{item.coverPath}}' class='videoImage' mode="aspectFill" bindtap='showVideoInfo' data-arrindex='{{index}}'></image>
     </block>
   </view>
-  
+
   <!--收藏 -->
   <view hidden='{{myLikesFalg}}'>
     <block wx:for="{{likeVideoList}}">

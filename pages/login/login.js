@@ -45,6 +45,7 @@ Page({
               method: 'POST',
               success: function(res) {
                 console.log(res.data.data);
+                app.setGlobalUserInfo(JSON.parse(rawd));//*-*-*-*
                 app.setGlobalUserInfo(res.data.data);
                 console.log("------------" + js_code);
                 console.log("------------" + rawd);

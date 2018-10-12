@@ -2,7 +2,6 @@
 const app = getApp()
 var serverUrl = getApp().serverUrl;
 
-
 var myVideoListrows;
 var likeVideoListows;
 
@@ -102,6 +101,7 @@ Page({
 
   },
 
+//作品
   doSelectWork: function() {
     this.setData({
       isSelectedWork: "video-info-selected",
@@ -268,7 +268,6 @@ Page({
     var myWorkFalg = this.data.myWorkFalg;
     var myLikesFalg = this.data.myLikesFalg;
 
-
     if (!myWorkFalg) {
       var videoList = this.data.myVideoList;
     } else if (!myLikesFalg) {
@@ -283,43 +282,5 @@ Page({
 
     })
   },
-  //点击关注按钮
-  // followMe: function(e) {
-  //   var that = this;
-  //   var userId = getApp().globalData.userId;
-
-  //   var publisherId = getApp().globalData.publisherId;
-  //   console.log("关注页面打印发布者的id-----" + publisherId)
-  //   console.log("关注页面打印发布者的e-----" + e.currentTarget.dataset.followtype)
-  //   var followType = e.currentTarget.dataset.followtype; //followtype要小写的
-
-  //   var url = '';
-  //   if (followType == '1') {
-  //     url = '/user/fanspick?followId=' + publisherId + '&userId=' + userId;
-  //   } else {
-  //     url = '/user/fansUnpick?userId=' + userId + '&followId=' + publisherId;
-  //   }
-
-  //   wx.showLoading();
-  //   wx.request({
-  //     url: serverUrl + url,
-  //     method: 'POST',
-  //     header: {
-  //       'content-type': 'application/x-www-form-urlencoded',
-  //     },
-  //     success: function() {
-  //       wx.hideLoading();
-  //       if (followType == '1') {
-  //         that.setData({
-  //           isFollow: true,
-  //         })
-  //       } else {
-  //         that.setData({
-  //           isFollow: false,
-  //         })
-  //       }
-  //     }
-  //   })
-
-  // }
+  
 })

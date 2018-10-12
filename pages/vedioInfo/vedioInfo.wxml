@@ -25,18 +25,24 @@
 
       <!----点赞按钮 -->
       <block wx:if="{{userClickvideo}}">
-        <cover-image class="size-me" src='../resource/images/like.png' style='margin-top:30rpx;' bindtap='likeVideoOrNot'></cover-image>
+        <cover-image class="size-me" src='../resource/images/点赞.png' style='margin-top:30rpx;' bindtap='ClickVideoOrNot'></cover-image>
       </block>
       <block wx:else>
-        <cover-image class="size-me" src='../resource/images/unlike.png' style='margin-top:30rpx;' bindtap='likeVideoOrNot'></cover-image>
+        <cover-image class="size-me" src='../resource/images/不点赞.png' style='margin-top:30rpx;' bindtap='ClickVideoOrNot'></cover-image>
       </block>
 
 
       <!-- 评论按钮 -->
       <cover-image class="size-me" src='../resource/images/comments.png' style='margin-top:30rpx;' bindtap='leaveComment'></cover-image>
 
-      <!-- 分享按钮 -->
-      <cover-image class="size-me" src='../resource/images/share.png' style='margin-top:30rpx;' bindtap='shareMe'></cover-image>
+      <!-- 收藏按钮 -->
+      <block wx:if="{{userLikevideo}}">
+        <cover-image class="size-me" src='../resource/images/like.png' style='margin-top:30rpx;' bindtap='LikeVideoOrNot'></cover-image>
+      </block>
+      <block wx:else>
+        <cover-image class="size-me" src='../resource/images/unlike.png' style='margin-top:30rpx;' bindtap='LikeVideoOrNot'></cover-image>
+      </block>
+
 
     </cover-view>
 

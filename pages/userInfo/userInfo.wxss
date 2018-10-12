@@ -87,6 +87,7 @@ page {
     width: 100%;
 }
 
+/* 显示选择栏的颜色 */
 .video-info-selected {
     background-color: gainsboro;
 }

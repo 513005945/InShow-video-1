@@ -39,14 +39,14 @@ Page({
     followCounts: 0,
     receiveLikeCounts: 0,
 
-    isFollow: true,//默认未关注，快去关注我
+    isFollow: true, //默认未关注，快去关注我
     videoInfo: null
   },
 
   onLoad: function(params) {
     var that = this;
 
-    
+
     var publisherId = params.publisherId;
     //var isFollow=params.isFollow
     //console.log("***************111********************" + params.isFollow);
@@ -65,7 +65,7 @@ Page({
     wx.showLoading({
       title: '请等待...'
     })
-   
+
     //请求个人简介
     wx.request({
       url: serverUrl + '/user/query?userId=' + params.publisherId + "&loginId=" + userId,
@@ -96,11 +96,9 @@ Page({
         // console.log("2632366366_____"+that.data.isFollow)
       },
     })
-
-
-
-
   },
+  
+  //关注与取消关注的按钮
   followMe: function(e) {
     var that = this;
     var publisherId = that.data.publisherId;
@@ -127,28 +125,22 @@ Page({
         //0:取消关注
         if (followType == '1') {
           that.setData({
-            fansCounts: that.data.fansCounts+1,
+            fansCounts: that.data.fansCounts + 1,
             isFollow: true,
           })
         } else {
           that.setData({
-            fansCounts: that.data.fansCounts-1,
+            fansCounts: that.data.fansCounts - 1,
             isFollow: false,
           })
         }
       }
 
     })
-
-
   },
 
-  Myreturn: function(params) {
-    var that = this;
-    wx.redirectTo({
-      url: '../vedioInfo/vedioInfo?videoInfo=' + JSON.stringify(that.data.videoInfo) ,
-    })
-  }
+
+  //
 
 
 })

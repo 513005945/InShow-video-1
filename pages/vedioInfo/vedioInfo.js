@@ -9,13 +9,13 @@ Page({
     src: "",
     videoInfo: {},
     sercerUrl: serverUrl,
-    //userLikeVideo: false,//收藏事件
-    userClickvideo:false //点赞事件
+    userClickvideo: false, //点赞
+    userLikevideo: false, //收藏
   },
   videoCtx: {},
 
   onLoad: function(params) {
-    
+
     // 点击视频列表进入视频详情
     var that = this;
     that.videoCtx = wx.createVideoContext("myVideo", that)
@@ -45,18 +45,21 @@ Page({
       url: serverUrl + '/user/qureyPublisher?loginuserId=' + loginUserId + '&videoId=' + videoInfo.id + '&publisherId=' + videoInfo.userId,
       method: 'POST',
       success: function(res) {
+        console.log("ajkjkj8997787878----" + JSON.stringify(res.data.data))
         var publisher = res.data.data.publisher;
+        console.log("papi酱==========" + res.data.data)
         var userClickvideo = res.data.data.userClickvideo;
-       // var fansPickuser = res.data.data.fansPickuser;
-        // console.log("-1-1-1-1-1-" + JSON.stringify(res));
-        //  console.log("-------publisher打印----" + JSON.stringify(publisher));
-        // console.log("-------userClickvideo打印------" + userClickvideo)
+        var userLikevideo = res.data.data.userLikevideo;
+
+        console.log("打印点赞进来值=--==---=-=" + userClickvideo)
+        console.log("打印收藏进来值=--==---=-=" + userLikevideo)
 
         that.setData({
           serverUrl: serverUrl,
           publisher: publisher,
           userClickvideo: userClickvideo,
-          //fansPickuser: fansPickuser
+          userLikevideo: userLikevideo,
+
         });
 
       }
@@ -93,11 +96,11 @@ Page({
   },
 
   //点赞按钮
-  likeVideoOrNot: function() {
+  ClickVideoOrNot: function() {
     var that = this;
     var videoInfo = that.data.videoInfo;
     var userClickvideo = that.data.userClickvideo
-    console.log("我这里进来就已经是" + userClickvideo)
+    console.log("点击点赞事件的时候。。。这里的useClickvideo的值就是--" + userClickvideo)
     var url = '/video/userClickvideo?userId=' + userId + '&videoId=' + videoInfo.id;
     //如果userClickvideo已经是点了赞的状态了，就取消赞
     if (userClickvideo) {
@@ -123,8 +126,8 @@ Page({
         that.setData({
           userClickvideo: !userClickvideo
         });
-
       }
+
 
     })
   },
@@ -134,15 +137,54 @@ Page({
     var that = this;
     var videoInfo = that.data.videoInfo;
     var fansPickuser = that.data.fansPickuser;
-   // console.log("*-*-*-*-videoInfo*--*-*--" + JSON.stringify(videoInfo));
-    console.log("打印发布者的id---"+videoInfo.userId)
-    console.log("关注标记："+fansPickuser)
+    // console.log("*-*-*-*-videoInfo*--*-*--" + JSON.stringify(videoInfo));
+    console.log("打印发布者的id---" + videoInfo.userId)
+    console.log("关注标记：" + fansPickuser)
     //getApp().globalData.publisherId = videoInfo.userId;
     wx.navigateTo({
       //url: '../mine/mine?publisherId=' + videoInfo.userId,
-      url: '../userInfo/userInfo?publisherId=' + videoInfo.userId + "&isFollow=" + fansPickuser +'&videoInfo=' + videoInfo,
-     
+      url: '../userInfo/userInfo?publisherId=' + videoInfo.userId + "&isFollow=" + fansPickuser + '&videoInfo=' + videoInfo,
+
     })
+  },
+
+
+  //收藏作品
+  LikeVideoOrNot: function() {
+    var that = this;
+    var videoInfo = that.data.videoInfo;
+    var userLikevideo = that.data.userLikevideo;
+
+    console.log("收藏不-------------" + userLikevideo);
+    //用户id--视频id--发布者id
+    var url = '/video/userLikevideo?userId=' + userId + '&videoId=' + videoInfo.id + '&publisherId=' + videoInfo.userId;
+    //如果Likevideo是已经收藏的状态，就取消收藏
+    if (userLikevideo) {
+      url = '/video/userunLikeVideo?userId=' + userId + '&videoId=' + videoInfo.id + '&publisherId=' + videoInfo.userId;
+    }
+    wx.showLoading({
+      title: '...',
+    })
+    console.log("---------------f--++++++++++++++++++-------------" + url);
+    wx.request({
+      url: serverUrl + url,
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+      success: function(res) {
+        wx.hideLoading();
+        that.setData({
+          userLikevideo: !userLikevideo,
+        });
+        console.log("取反之后：" + userLikevideo)
+      }
+    })
+
+
+
+
+
   }
 
 

@@ -1,5 +1,5 @@
-var videoContextPrev, videoContext;
 var serverUrl = getApp().serverUrl;
+var userId = getApp().globalData.userId;
 
 Page({
   data: {
@@ -17,6 +17,8 @@ Page({
       'http://p4.music.126.net/n15ddawhY4cyIzFu23CSJA==/1401877341861315.jpg',
       'http://p3.music.126.net/zMwH3zh33TAacyh2_4RjXw==/1375489062675977.jpg'
     ],
+    //tmpHeight: '',
+    //tmpWidth: ''
   },
 
   /**搜索框跳转 */
@@ -25,6 +27,7 @@ Page({
       url: '../bgmsearch/bgmsearch',
     })
   },
+
   /**音频进度 */
   audioPress: function(e) {
     var progress = parseInt((e.detail.currentTime / e.detail.duration) * 100)
@@ -33,20 +36,24 @@ Page({
     })
   },
 
-
-
   onLoad: function(params) {
     var that = this;
-    console.log("假按揭发酒疯" + params);
+    console.log("------------带进来的视频时长--------------" + params.duration)
+    console.log("------------视频高度--------------" + params.tmpHeight)
+    console.log("------------视频宽度--------------" + params.tmpWidth)
+    console.log("------------视频路径--------------" + params.tmpVideoUrl)
+    console.log("------------视频封面--------------" + params.tmpCoverUrl)
+
     that.setData({
-      videoParams: params
+      videoParams: params,
     });
+
     wx.showLoading({
       title: '请等待...',
     });
 
     that.audioCtx = wx.createAudioContext("id", that)
-    var user = getApp().getGlobalUserInfo();
+
 
     // 调用后端
     wx.request({
@@ -57,8 +64,6 @@ Page({
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded',
-        //'headerUserId': user.id,
-        //'headerUserToken': user.userToken
       },
       success: function(res) {
         wx.hideLoading();
@@ -126,40 +131,54 @@ Page({
 
     //TODO：点击上传按钮后得保证歌不是播放状态的————————bug暂存
     wx.getBackgroundAudioManager().stop();
-
+    console.log("----me.data.videoParams----------" + JSON.stringify(me.data.videoParams))
     var duration = me.data.videoParams.duration;
-    var tmpHeight = me.data.videoParams.tmpHeight;
-    var tmpWidth = me.data.videoParams.tmpWidth;
     var tmpVideoUrl = me.data.videoParams.tmpVideoUrl;
     var tmpCoverUrl = me.data.videoParams.tmpCoverUrl;
 
+    if (tmpWidth == undefined || tmpHeight == undefined) {
+      //动态获取设备屏幕的高度
+      wx.getSystemInfo({
+        success: function(res) {
+          console.log(res.brand) //手机品牌
+          console.log(res.windowWidth) //手机屏幕可用宽度
+          console.log(res.windowHeight) //手机屏幕可用高度
+          tmpWidth = res.windowWidth;
+          tmpHeight = res.windowHeight;
+        }
+      })
+    } else { //如果是本地上传的话，高度和宽度就不会是undefined了，本来有值
+      var tmpWidth = me.data.videoParams.tmpWidth;
+      var tmpHeight = me.data.videoParams.tmpHeight;
+    }
+
+    console.log("---------tmpWidth上传----------" + tmpWidth)
+    console.log("---------tmpHeight---------" + tmpHeight)
+    console.log("---------duration---------" + duration)
+    
     // 上传短视频
     wx.showLoading({
       title: '上传中...',
     })
-    var serverUrl = getApp().serverUrl;
-    // fixme 修改原有的全局对象为本地缓存
-    var userInfo = getApp().getGlobalUserInfo();
 
     wx.uploadFile({
       url: serverUrl + '/video/uploadVideos',
+      method: 'POST',
       formData: {
-        userId: userInfo.id, // fixme 原来的 getApp().userInfo.id
+        userId: userId,
         audioId: bgmId,
         desc: "这个是描述",
         topicId: "",
         videoSecond: duration,
         videoHeight: tmpHeight,
         videoWidth: tmpWidth,
-        status: 0,
         bgmPosition: 0
       },
       filePath: tmpVideoUrl,
       name: 'file',
       header: {
-        'content-type': 'application/json', // 默认值
-        // 'headerUserId': userInfo.id,
-        // 'headerUserToken': userInfo.userToken
+        'content-type': 'application/x-www-form-urlencoded'
+        //'content-type': 'application/json', // 默认值
       },
 
       success: function(res) {
@@ -168,15 +187,13 @@ Page({
         if (data.status == 200) {
           wx.showToast({
             title: '上传成功!~~',
+            duration: 3000,
             icon: "success"
           });
           // 上传成功后跳回之前的页面
           // wx.navigateBack({
           //   delta: 1
           // })
-
-
-          //wx.navigateTo({
           wx.switchTab({
             url: '../index/index',
           })
@@ -189,18 +206,20 @@ Page({
           wx.redirectTo({
             url: '../index/index',
           })
-          console.log("氨基酸看见覅偶尔就看到了发")
+
         } else {
           wx.showToast({
-            title: '上传失败!~~',
-            icon: "success"
+            title: '上传失败!!!',
+            duration: 2000,
+            icon: "loading"
           });
         }
-
       }
     })
   },
+
   onHide: function() {
-    that.audioCtx.pause();//跳转到新的页面后，歌曲就暂停
+    that.audioCtx.pause(); //跳转到新的页面后，歌曲就暂停
   }
+
 })

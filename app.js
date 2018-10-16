@@ -9,6 +9,13 @@ App({
   getGlobalUserInfo: function() {
     return wx.getStorageSync("userInfo");
   },
+  setGlobalUserId: function(uid) {
+    wx.setStorageSync("userId", uid);
+  },
+
+  getGlobalUserId: function() {
+    return wx.getStorageSync("userId");
+  },
 
   globalData: {
     test: "test",

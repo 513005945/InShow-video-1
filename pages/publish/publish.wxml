@@ -1,0 +1,15 @@
+<view class="container-total">
+  <view class="container-left-list">
+      <view class="container-left-list-out">
+        <view class='container-left-list-in'>
+          <label class='label'>视频描述:</label>
+          <textarea class='textarea' bindinput="bindinput" placeholder='详情...' />
+        </view>
+      </view>
+    <view class="video-image">
+      <image src='../resource/images/like.png' mode="aspectFit"></image>
+    </view>
+  </view>
+</view>
+
+

@@ -12,7 +12,6 @@ Page({
     // serverUrl: serverUrl
   },
 
-
   //在这里设置重定向的拦截
   onLoad: function(params) {
     var that = this;
@@ -28,7 +27,7 @@ Page({
         var js_code = res.code;
         wx.getUserInfo({
           success: function(res) {
-          //  console.log("------------------" + res.rawData);
+            //  console.log("------------------" + res.rawData);
             app.globalData.userInfo = res.userInfo;
             var rawd = res.rawData;
             wx.request({
@@ -45,20 +44,18 @@ Page({
               method: 'POST',
               success: function(res) {
                 console.log(res.data.data);
-                app.setGlobalUserInfo(JSON.parse(rawd));//*-*-*-*
-                app.setGlobalUserInfo(res.data.data);
+                app.setGlobalUserInfo(JSON.parse(rawd));
+                app.setGlobalUserId(res.data.data.userId);
+                console.log("ajkfkk----userId-------" + res.data.data.userId)
+                console.log("ajkfkk----userid-------" + res.data.data.userid)
                 console.log("------------" + js_code);
                 console.log("------------" + rawd);
                 console.log("--------------登陆成功o(*￣▽￣*)o");
-              //  app.globalData.userId = res.userId;
+                //app.globalData.userId = res.userId;
                 wx.switchTab({
                   url: '../index/index'
                 })
-
-
               }
-
-
             })
             //do anything
 
@@ -68,6 +65,4 @@ Page({
       }
     })
   },
-
-
 })

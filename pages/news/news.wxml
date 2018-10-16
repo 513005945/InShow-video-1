@@ -33,9 +33,9 @@
         <!-- <image src='{{serverUrl}}{{item.coverPath}}' class='videoImage' mode="aspectFill" bindtap='showVideoInfo' data-arrindex='{{index}}'></image> -->
         <view class='userinfo1'>
         <view class='userinfo2'>
-        <image class="one" src='{{item.avatarurl}}'></image>
+        <image bindtap='showUser' data-userId="{{item.id}}" class="one" src='{{item.avatarurl}}'></image>
         <view class='userinfo3'>
-        <label class='nickname'>{{item.nickname}}</label>
+        <label bindtap='showUser' data-userId="{{item.id}}" class='nickname'>{{item.nickname}}</label>
         <label style='margin-top:10rpx;'>省份 : {{item.province}}</label>
         <label>城市 : {{item.city}}</label>
         </view>
@@ -73,11 +73,11 @@
 <view wx:if="{{myFollowsList.length>0}}">
 <block  wx:for="{{myFollowsList}}" >
         <!-- <image src='{{serverUrl}}{{item.coverPath}}' class='videoImage' mode="aspectFill" bindtap='showVideoInfo' data-arrindex='{{index}}'></image> -->
-        <view class='userinfo1'>
+        <view  class='userinfo1'>
         <view class='userinfo2'>
-        <image class="one" src='{{item.avatarurl}}'></image>
+        <image bindtap='showUser' data-userId="{{item.id}}" class="one" src='{{item.avatarurl}}'></image>
         <view class='userinfo3'>
-        <label class='nickname'>{{item.nickname}}</label>
+        <label bindtap='showUser' data-userId="{{item.id}}" class='nickname'>{{item.nickname}}</label>
         <label style='margin-top:10rpx;'>省份 : {{item.province}}</label>
         <label>城市 : {{item.city}}</label>
         </view>

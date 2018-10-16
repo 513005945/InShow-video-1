@@ -1,26 +1,27 @@
 /*视频描述样式 */
-container-total{
+
+container-total {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
 }
 
-.container-left-list{
+.container-left-list {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content:flex-start;
+  justify-content: flex-start;
   box-sizing: border-box;
   margin-top: 20rpx;
 }
 
-.container-left-list-out view{
+.container-left-list-out view {
   font-size: 35rpx;
   margin-bottom: 15rpx;
   width: 450rpx;
   /* text-overflow:ellipsis;  */
-  overflow:hidden; 
+  overflow: hidden;
   /* white-space:nowrap;  */
   margin-top: 10rpx;
 }
@@ -31,29 +32,81 @@ container-total{
   margin-top: 10px;
   color: white;
   padding: 10px;
-  background-color:#F08080;
-  width:50%;
+  background-color: #f08080;
+  width: 50%;
 }
 
 /* box-sizing:规定两个并排的边框 */
-.video-image{
+
+.video-image {
   flex: 0 0 32%;
   box-sizing: border-box;
   min-height: 242rpx;
 }
 
-.video-image image{
+.video-image image {
   height: 242rpx;
   width: 242rpx;
 }
 
-.textarea{
+.textarea {
   flex: 0 0 50%;
   box-sizing: border-box;
   margin-top: 10px;
   padding: 10px;
-  width:95%;
+  width: 95%;
   color: black;
   background-color: #ffe4e1;
 }
 
+
+
+.page {
+  min-height: 100%;
+  flex: 1;
+  background-color: #fbf9fe;
+  font-size: 32rpx;
+  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+
+.page__desc {
+  display: none;
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  color: #bbb;
+}
+
+.radio {
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.section {
+  margin-bottom: 80rpx;
+}
+
+.section_gap {
+  padding: 0 30rpx;
+}
+
+
+/* 按钮样式 */
+.con-button{
+  color: black;
+  background-color: #f08080;
+  margin-bottom: 10px;
+  border-radius: 98rpx; 
+}
+
+.submit-button{
+ color: black;
+  background-color: #1AAD19;
+  /* position: fixed; */
+  bottom: 0;
+  margin-bottom: 5rpx;
+  width: 80%;
+  margin-top: 20rpx;
+  border-radius: 98rpx; 
+}

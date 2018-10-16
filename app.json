@@ -1,14 +1,16 @@
 {
   "pages": [
-    "pages/publish/publish",
     "pages/vedio/vedio",
+    "pages/publish/publish",
     "pages/index/index",
     "pages/vedioInfo/vedioInfo",
     "pages/ReleaseVideo/ReleaseVideo",
     "pages/bgmsearch/bgmsearch",
     "pages/login/login",
     "pages/chooseBgm/chooseBgm",
-    "pages/classify/classify",
+    "pages/topic/topic",
+    "pages/topicdetail/topicdetail",
+    "pages/uploadtopic/uploadtopic",
     "pages/news/news",
     "pages/mine/mine",
     "pages/vedioSearch/vedioSearch",
@@ -34,7 +36,7 @@
         "selectedIconPath": "pages/resource/images_nav/home1.png"
       },
       {
-        "pagePath": "pages/classify/classify",
+        "pagePath": "pages/topic/topic",
         "text": "主题",
         "iconPath": "pages/resource/images_nav/主题.png",
         "selectedIconPath": "pages/resource/images_nav/主题1.png"

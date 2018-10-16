@@ -3,13 +3,7 @@ var userId = getApp().globalData.userId;
 
 Page({
   data: {
-    showView: true, //显示按钮开拍
-    play: true, //控制单曲播放
-    chooseCount: 0,
-    bgmList: [],
-    serverUrl: serverUrl,
-    videoParams: {},
-    audioCtx: {},
+
     poster: "http://p4.music.126.net/tUapZaR1iT5XTX2QcAc0DA==/96757023257715.jpg",
     /**轮播图 */
     imgUrls: [
@@ -17,8 +11,16 @@ Page({
       'http://p4.music.126.net/n15ddawhY4cyIzFu23CSJA==/1401877341861315.jpg',
       'http://p3.music.126.net/zMwH3zh33TAacyh2_4RjXw==/1375489062675977.jpg'
     ],
-    //tmpHeight: '',
-    //tmpWidth: ''
+
+    showView: true, //显示按钮开拍
+    play: true, //控制单曲播放
+    chooseCount: 0,
+    bgmList: [],
+    serverUrl: serverUrl,
+    videoParams: {},
+    audioCtx: {},
+
+
   },
 
   /**搜索框跳转 */
@@ -43,6 +45,7 @@ Page({
     console.log("------------视频宽度--------------" + params.tmpWidth)
     console.log("------------视频路径--------------" + params.tmpVideoUrl)
     console.log("------------视频封面--------------" + params.tmpCoverUrl)
+    console.log("------------bgm--------------" + params.tmpCoverUrl)
 
     that.setData({
       videoParams: params,
@@ -81,9 +84,7 @@ Page({
             duration: 2000,
             icon: "none",
             success: function() {
-              // wx.redirectTo({
-              //   url: '',
-              // })
+
               console.log("嘿");
             }
           });
@@ -101,7 +102,6 @@ Page({
     var itemId = e.currentTarget.id;
     if (toggleBtn == itemId) {
       that.setData({
-        //showView: (!that.data.showView)
         showView: false,
       })
     } else {
@@ -124,17 +124,19 @@ Page({
 
   uploadBtn: function(e) {
     var me = this;
-    var bgmId = e.currentTarget.id;
-    //var desc = e.detail.value.desc;
-    console.log("bgmId:" + bgmId);
-    // console.log("desc:" + desc);
+
+
+    //console.log("-----打印歌曲具体信息-----" + JSON.stringify(me.data))
 
     //TODO：点击上传按钮后得保证歌不是播放状态的————————bug暂存
     wx.getBackgroundAudioManager().stop();
-    console.log("----me.data.videoParams----------" + JSON.stringify(me.data.videoParams))
+    //console.log("----视频的具体信息----------" + JSON.stringify(me.data.videoParams))
     var duration = me.data.videoParams.duration;
     var tmpVideoUrl = me.data.videoParams.tmpVideoUrl;
     var tmpCoverUrl = me.data.videoParams.tmpCoverUrl;
+
+    var bgmId = me.data.itemId;
+    console.log("bgmId:---------" + bgmId);
 
     if (tmpWidth == undefined || tmpHeight == undefined) {
       //动态获取设备屏幕的高度
@@ -155,71 +157,101 @@ Page({
     console.log("---------tmpWidth上传----------" + tmpWidth)
     console.log("---------tmpHeight---------" + tmpHeight)
     console.log("---------duration---------" + duration)
-    
-    // 上传短视频
-    wx.showLoading({
-      title: '上传中...',
+
+    wx.navigateTo({
+      url: '../publish/publish?duration=' + duration +
+        "&tmpHeight=" + tmpHeight +
+        "&tmpWidth=" + tmpWidth +
+        "&tmpVideoUrl=" + tmpVideoUrl +
+        "&tmpCoverUrl=" + tmpCoverUrl + 
+        "&audioId=" + bgmId
     })
 
-    wx.uploadFile({
-      url: serverUrl + '/video/uploadVideos',
-      method: 'POST',
-      formData: {
-        userId: userId,
-        audioId: bgmId,
-        desc: "这个是描述",
-        topicId: "",
-        videoSecond: duration,
-        videoHeight: tmpHeight,
-        videoWidth: tmpWidth,
-        bgmPosition: 0
-      },
-      filePath: tmpVideoUrl,
-      name: 'file',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-        //'content-type': 'application/json', // 默认值
-      },
-
-      success: function(res) {
-        var data = JSON.parse(res.data);
-        wx.hideLoading();
-        if (data.status == 200) {
-          wx.showToast({
-            title: '上传成功!~~',
-            duration: 3000,
-            icon: "success"
-          });
-          // 上传成功后跳回之前的页面
-          // wx.navigateBack({
-          //   delta: 1
-          // })
-          wx.switchTab({
-            url: '../index/index',
-          })
-        } else if (res.data.status == 502) {
-          wx.showToast({
-            title: res.data.msg,
-            duration: 2000,
-            icon: "none"
-          });
-          wx.redirectTo({
-            url: '../index/index',
-          })
-
-        } else {
-          wx.showToast({
-            title: '上传失败!!!',
-            duration: 2000,
-            icon: "loading"
-          });
-        }
-      }
-    })
   },
 
-  onHide: function() {
-    that.audioCtx.pause(); //跳转到新的页面后，歌曲就暂停
-  }
 
 })
+
+
+
+//点击第二首歌曲的时候
+// {
+//   "poster": "http://p4.music.126.net/tUapZaR1iT5XTX2QcAc0DA==/96757023257715.jpg",
+//   "imgUrls": ["http://p3.music.126.net/bKFfzVVNmdLTaRN5uHHPqA==/18786255672743757.jpg", "http://p4.music.126.net/n15ddawhY4cyIzFu23CSJA==/1401877341861315.jpg", "http://p3.music.126.net/zMwH3zh33TAacyh2_4RjXw==/1375489062675977.jpg"],
+//   "showView": "180927DPB78GT44H",
+//   "play": true,
+//   "chooseCount": 0,
+//   "bgmList": [{
+//     "id": "180927DPB6G6PRWH",
+//     "author": "鞠文娴",
+//     "name": "BINGBIAN病变 (女声版)",
+//     "path": "/bgm/BINGBIAN病变 (女声版)-鞠文娴_铃声之家cnwav.mp3",
+//     "chooseCount": 3
+//   }, {
+//     "id": "180927DPB78GT44H",
+//     "author": "Charli XCX",
+//     "name": "Boys",
+//     "path": "/bgm/Boys-Charli XCX_铃声之家cnwav.mp3",
+//     "chooseCount": 0
+//   }, {
+//     "id": "180927DPB7KT3NF8",
+//     "author": "Trackformers",
+//     "name": "call of the ambulance",
+//     "path": "/bgm/call of the ambulance-Trackformers_铃声之家cnwav.mp3",
+//     "chooseCount": 5
+//   }, {
+//     "id": "180927DPB7ZCMTMW",
+//     "author": "Atwood3",
+//     "name": "Despacito（苹果手机铃声版）",
+//     "path": "/bgm/Despacito（苹果手机铃声版）-Atwood3_铃声之家cnwav.mp3",
+//     "chooseCount": 0
+//   }, {
+//     "id": "180927DPB88YSCX4",
+//     "author": "Daddy Yankee",
+//     "name": "Dura（抖音火热神曲）",
+//     "path": "/bgm/Dura（抖音火热神曲）-Daddy Yankee_铃声之家cnwav.mp3",
+//     "chooseCount": 4
+//   }, {
+//     "id": "180927DPB8CZB1WH",
+//     "author": "Taylor Swift",
+//     "name": "Look What You Made Me Do",
+//     "path": "/bgm/Look What You Made Me Do-Taylor Swift_铃声之家cnwav.mp3",
+//     "chooseCount": 0
+//   }, {
+//     "id": "180927DPB8M9FG54",
+//     "author": "Vicetone、Cozi Zuehlsdorff",
+//     "name": "Nevada",
+//     "path": "/bgm/Nevada-Vicetone、Cozi Zuehlsdorff_铃声之家cnwav.mp3",
+//     "chooseCount": 3
+//   }, {
+//     "id": "180927DPB92FNX1P",
+//     "author": "Alice Merton",
+//     "name": "No Roots (Single版)",
+//     "path": "/bgm/No Roots (Single版)-Alice Merton_铃声之家cnwav.mp3",
+//     "chooseCount": 0
+//   }, {
+//     "id": "180927DPB96G8F14",
+//     "author": "ラムジ",
+//     "name": "PLANET（温柔日系男声）",
+//     "path": "/bgm/PLANET（温柔日系男声）-ラムジ_铃声之家cnwav.mp3",
+//     "chooseCount": 0
+//   }, {
+//     "id": "180927DPB9AN8KYW",
+//     "author": "Russ",
+//     "name": "Psycho (Pt. 2)",
+//     "path": "/bgm/Psycho (Pt. 2)-Russ_铃声之家cnwav.mp3",
+//     "chooseCount": 0
+//   }],
+//   "serverUrl": "http://192.168.1.7:8081",
+//   "videoParams": {
+//     "duration": "10.033333",
+//     "tmpHeight": "960",
+//     "tmpWidth": "544",
+//     "tmpVideoUrl": "http://tmp/wxa35bbd6556297ebd.o6zAJswv484Br_z2PXMPD6m6YV-w.Cf4BjKhw4kpy55c8ac4a92f9146596ada440250da6e2.mp4",
+//     "tmpCoverUrl": "http://tmp/wxa35bbd6556297ebd.o6zAJswv484Br_z2PXMPD6m6YV-w.3Y4LTe2civMB1519a7d3e11fda70d0c1644ec15528ab.jpg"
+//   },
+//   "audioCtx": {},
+//   "__webviewId__": 173,
+//   "itemId": "180927DPB78GT44H",
+//   "audioPress": 4
+// }

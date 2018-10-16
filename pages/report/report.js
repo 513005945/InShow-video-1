@@ -45,8 +45,6 @@ Page({
     var reasonIndex = e.detail.value.reasonIndex;
     var reasonContent = e.detail.value.reasonContent;
 
-
-
     //如果没有选择好举报理由就提交的话，弹出小窗口继续
     if (reasonIndex == null || reasonIndex == '' || reasonIndex == undefined) {
       wx.showToast({

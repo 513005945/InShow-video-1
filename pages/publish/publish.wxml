@@ -1,15 +1,31 @@
-<view class="container-total">
-  <view class="container-left-list">
-      <view class="container-left-list-out">
-        <view class='container-left-list-in'>
-          <label class='label'>视频描述:</label>
-          <textarea class='textarea' bindinput="bindinput" placeholder='详情...' />
+<view>
+  <form bindsubmit='upload'>
+    <view class="container-total">
+      <view class="container-left-list">
+        <view class="container-left-list-out">
+          <view class='container-left-list-in'>
+            <label class='label'>视频描述:</label>
+            <textarea class='textarea' bindinput="bindinput" placeholder='详情...' name="desc" />
+          </view>
+        </view>
+        <view class="video-image">
+          <image src='../resource/images/like.png' mode="aspectFit"></image>
         </view>
       </view>
-    <view class="video-image">
-      <image src='../resource/images/like.png' mode="aspectFit"></image>
     </view>
-  </view>
+
+    <button class="con-button" size="mini">可选话题</button>
+    <view class="page">
+      <view class="section section_gap">
+        <radio-group class="radio-group" bindchange="radioChange" name="descId">
+          <label class="radio" wx:for="{{topicList}}">
+            <radio value="{{item.topic.id}}" checked="{{item.checked}}"  data-src="{{serverUrl}}{{item.topic.coverPath}}" bindtap='radioChoose' data-createTime="{{item.topic.createTime}}"/>{{item.topic.topicDesc}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <button class="submit-button" size="default" bindtap='confirm2publish' >确认发布</button>
+
+
+  </form>
 </view>
-
-

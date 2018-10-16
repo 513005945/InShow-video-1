@@ -180,6 +180,18 @@ Page({
     })
   },
   
+  //跳转到用户信息页面
+  showUser: function (e) {
+    var that = this;
+    // console.log("2222222222222222222333333" + JSON.stringify( e.currentTarget));
+    var userId = e.currentTarget.dataset.userid;
+    // console.log("2222222222222222222" + userId);
+    wx.navigateTo({
+      url: '../userInfo/userInfo?publisherId=' + userId,
+    })
+  },
+
+  
   doSelectFans: function () {
     this.setData({
       isSelectedFans: "video-info-selected",

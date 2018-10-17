@@ -34,6 +34,7 @@ Page({
     })
     this.getTopicHart()
   },
+
   getTopic: function(){
     console.log("-----11----")
     var that = this;

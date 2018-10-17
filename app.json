@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/news/news",
     "pages/vedio/vedio",
     "pages/publish/publish",
     "pages/index/index",
@@ -11,7 +12,7 @@
     "pages/topic/topic",
     "pages/topicdetail/topicdetail",
     "pages/uploadtopic/uploadtopic",
-    "pages/news/news",
+   
     "pages/mine/mine",
     "pages/vedioSearch/vedioSearch",
     "pages/userInfo/userInfo",
@@ -49,9 +50,9 @@
       },
       {
         "pagePath": "pages/news/news",
-        "text": "消息",
-        "iconPath": "pages/resource/images_nav/消息.png",
-        "selectedIconPath": "pages/resource/images_nav/消息1.png"
+        "text": "圈子",
+        "iconPath": "pages/resource/images_nav/圈子.png",
+        "selectedIconPath": "pages/resource/images_nav/圈子1.png"
       },
       {
         "pagePath": "pages/mine/mine",

@@ -24,7 +24,12 @@ Page({
     myFollowsList: [],
     myFollowsPage: 0,
 
+    myFansSearchList:[],
+
+    myFollowsSearchList:[],
+
     //个人信息
+    key:'',
     id:'',
     avatarurl: '',
     city: '',
@@ -40,12 +45,26 @@ Page({
     receiveLikeCounts: 0
   },
 
+
+
   onLoad: function(){
     var me = this;
     
     me.getmyFansList(0);    
   },
 
+  formSubmit:function(e){
+    var that = this;
+    var searchValue = e.detail.value.searchValue;
+    Console.log("+++++++++++++++++" + searchValue);
+    that.data.key=searchdesc;
+    taht.doSelectFans();
+  } ,
+
+
+
+
+  //触底事件
   onReachBottom: function () {
     var myFansFalg = this.data.myFansFalg;
     var myFollowsFalg = this.data.myFollowsFalg;
@@ -92,7 +111,8 @@ Page({
     // console.log("++++++++++" + serverUrl);
     wx.request({
 
-      url: serverUrl + '/search/getFansByKey?userid=' + userId + '&page=' + page,
+      url: serverUrl + '/search/getFansByKey?userid=' + userId + '&page=' + page
+        +'&key=' +  me.data.key,
 
       header: {
         'content-type': 'application/json' // 默认值
@@ -208,7 +228,7 @@ Page({
       myFollowsList: [],
       myFollowsPage: 0,
 
-
+      key:''
 
     });
     this.getmyFansList(0);
@@ -231,6 +251,7 @@ Page({
       myFollowsList: [],
       myFollowsPage: 0,
       
+      key: ''
     });
 
     this.getmyFollowsList(0);

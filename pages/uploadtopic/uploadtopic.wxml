@@ -8,14 +8,14 @@
   <view class="line"></view>
  
   <view class="inputView2">
-  <!-- <image class="two" src='../resource/images/cardbg.jpg'></image> -->
+   <!-- <image class="two" src='../resource/images/cardbg.jpg'></image> -->
       <textarea name="topicdesc" class='textarea' placeholder="请填写详细描述"></textarea>
       
   </view>
 
   <view class="line"></view>
   <view>  
-  <button class='btn2' bindtap="uploadPhoto" >选择封面</button>
+  <button class='btn2' type="primary" bindtap="uploadPhoto" >选择封面</button>
   
      <button class="loginBtn" type="primary" form-type='submit'>提交</button>
   </view>

@@ -50,30 +50,32 @@ Page({
   getvedio: function(){
     var that = this;
     wx.request({
-      url: serverUrl +'/video/getByPage?page='+that.data.Vpage,
-      method: "POST",
+      // url: serverUrl +'/video/getByPage?page='+that.data.Vpage,
+      url: serverUrl + '/topic/getAllVideoInTopic?page=' + that.data.Vpage + '&topicId=' + that.data.topicId,
+      method: "GET",
       header: {
-        'content-type': 'application/x-www-form-urlencoded' 
+        'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        // console.log(res.data.data.rows[2]);
+        console.log(res.data);
         that.setData({
           Vpage: that.data.Vpage + 1,
+          List :that.data.List.concat(res.data.data),
         })
-        var length =that.data.List.length;
-        console.log("---------------------"+length)
-        for(var i=0;i<4;i++){
-          if (res.data.data.rows[i].topicId == that.data.topicId){
-            that.setData({
-              List: that.data.List.concat(res.data.data.rows[i]),
-            })
-          }
-        }
-        console.log("+++++++++++++++" + that.data.List.length);
-        if (length == that.data.List.length || that.data.List.length < 2)
-        {
-          that.getvedio();
-        }
+        // var length =that.data.List.length;
+        // console.log("---------------------"+length)
+        // for(var i=0;i<4;i++){
+        //   if (res.data.data.rows[i].topicId == that.data.topicId){
+        //     that.setData({
+        //       List: that.data.List.concat(res.data.data.rows[i]),
+        //     })
+        //   }
+        // }
+        // console.log("+++++++++++++++" + that.data.List.length);
+        // if (length == that.data.List.length || that.data.List.length < 2)
+        // {
+        //   that.getvedio();
+        // }
         
       }
     }) 

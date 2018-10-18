@@ -1,35 +1,31 @@
-<!-- <view class='add_btn'>
-  <view class='style1'>
-    <button class='btn1' bindtap="camera" type="primary" data-type="recordVideo">录制视频</button>
-    <button class='btn2' bindtap="uploadVideo" type="primary" data-type="chooseVideo">本地视频</button>
-  </view>
-</view> -->
-
 <view class="view">
 
-  <view class="window">
+  <!-- <view class="window">
     <video class="cover-9" src="{{tmpVideoUrl}}" poster="{{tmpCoverUrl}}" wx:if="{{type=='startRecord'}}"></video>
     <image class="cover-9" src="{{tmpCoverUrl}}" wx:if="{{type=='chooseVideo'}}"></image>
-
     <view class="window-2">
       <button bindtap="open" type="primary" data-type="startRecord">录制视频</button>
       <button bindtap="open" type="primary" data-type="chooseVideo" bindtap="uploadVideo">本地视频</button>
     </view>
-  </view>
+  </view> -->
+
 
   <!-- 视频录制 -->
   <camera class="camera" device-position="{{device?'back':'front'}}" wx:if="{{camera}}" flash="off">
-
-    <cover-view class="cover-1" bindtap="camera">
+    <cover-view class="cover-1" bindtap="camera" >
       <cover-view class="cover-2">
         <cover-view class="cover-5" wx:if="{{type=='startRecord'&&startRecord}}">{{time}}S</cover-view>
       </cover-view>
     </cover-view>
 
-    <cover-image class="cover-3" src="../resource/images/x.png" style="width:64rpx;height:64rpx;" bindtap="close"></cover-image>
-
     <cover-image class="cover-4" src="../resource/images/zh.png" style="width:64rpx;height:64rpx;" bindtap="devicePosition"></cover-image>
 
+    <cover-image class="cover-3" src="../resource/images/x.png" style="width:64rpx;height:64rpx;" bindtap="close"></cover-image>
+
+    <cover-image class="cover-import" src="../resource/images/import.png" style="width:64rpx;height:64rpx;" data-type="chooseVideo" bindtap="uploadVideo"></cover-image>
+
+
   </camera>
+
 
 </view>

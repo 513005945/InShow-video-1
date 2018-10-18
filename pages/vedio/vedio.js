@@ -6,11 +6,38 @@ Page({
     timeLoop: "",
     type: "startRecord", //默认的是录制视频模式
     recordDuration: 0, //统计录制的时间
-  },
+    camera: true,
 
+  },
+  onShow() {
+    this.setData({
+      ctx: wx.createCameraContext(),
+      time: 0,
+      timeLoop: "",
+      type: "startRecord", //默认的是录制视频模式
+      recordDuration: 0, //统计录制的时间
+      camera: true,
+    });
+  },
+  //页面隐藏/切入后台时触发。 小程序切入后台等。
+  onHide() {
+    var me = this;
+    clearInterval(me.data.timeLoop); //清除定时器
+    // me.onShow();
+    me.setData({
+      camera: false,
+      startRecord: false,
+      time: 0
+    })
+  },
   onLoad() {
     this.setData({
-      ctx: wx.createCameraContext()
+      ctx: wx.createCameraContext(),
+      time: 0,
+      timeLoop: "",
+      type: "startRecord", //默认的是录制视频模式
+      recordDuration: 0, //统计录制的时间
+      camera: true,
     })
   },
 
@@ -60,7 +87,7 @@ Page({
   },
 
   //视频录制
-  camera() {
+  camera: function() {
     var me = this;
     let {
       ctx,
@@ -109,7 +136,7 @@ Page({
     } else {
       this.stopRecord(ctx);
       //this.data.recordDuration = timeCount;//统计录制时间
-      console.log("---444---" + timeCount)
+      // console.log("---444---" + timeCount)
       // this.setData({
       //   recordDuration: timeCount,
       // })
@@ -126,7 +153,10 @@ Page({
 
     ctx.stopRecord({
       success: (res) => {
-        console.log("-------打印停止录制的详细信息-------" + JSON.stringify(res))
+        console.log("-------打印停止录制的详细信息-------" + JSON.stringify(res));
+        var me = this;
+        console.log("关闭相机");
+        clearInterval(me.data.timeLoop); //清除定时器
         // var duration = res.duration;
         // var tmpHeight = res.height;
         // var tmpWidth = res.width;
@@ -146,10 +176,13 @@ Page({
         });
 
         wx.navigateTo({
-          url: '../chooseBgm/chooseBgm?duration=' + duration+
+          url: '../chooseBgm/chooseBgm?duration=' + duration +
             "&tmpVideoUrl=" + tmpVideoUrl +
             "&tmpCoverUrl=" + tmpCoverUrl,
-        })
+          // url: '../vedioPreview/vedioPreview?duration=' + duration +
+          //   "&tmpVideoUrl=" + tmpVideoUrl +
+          //   "&tmpCoverUrl=" + tmpCoverUrl,
+        });
       },
 
       fail: (e) => {
@@ -170,13 +203,54 @@ Page({
       type
     })
   },
+
   // 关闭模拟的相机界面  
   close() {
+    var me = this;
     console.log("关闭相机");
-    this.setData({
-      camera: false
+
+    clearInterval(me.data.timeLoop); //清除定时器
+    // me.onShow();
+    me.setData({
+      camera: false,
+      startRecord: false,
+      time: 0
+    })
+    console.log(me);
+
+    // console.log(me.data.ctx)
+    wx.navigateTo({
+      url: '../vediotmp/vediotmp',
     })
   },
+
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+    var me = this;
+    clearInterval(me.data.timeLoop); //清除定时器
+
+    me.setData({
+      camera: false,
+      startRecord: false,
+      time: 0
+    })
+    console.log("--------------------===========")
+    console.log(me.camera);
+
+  },
+
+
+
+
+
 
 
 })

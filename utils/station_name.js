@@ -5,7 +5,7 @@ function getname(name) {
   //console.log(arr);
   for (var i in arr) {
     var son = arr[i].split('|');
-    if (son.length > 1) {
+    if (son.length > 1 && name!=null&&name!=undefined) {
       if (son[3] == name.toLowerCase()) {
         return son[1];
       }

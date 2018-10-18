@@ -29,7 +29,8 @@ Page({
     myFollowsSearchList:[],
 
     //个人信息
-    key:'',
+     key:'',
+     key1:'',
     id:'',
     avatarurl: '',
     city: '',
@@ -53,16 +54,38 @@ Page({
     me.getmyFansList(0);    
   },
 
-  formSubmit:function(e){
+ Submit:function(e){
     var that = this;
-    var searchValue = e.detail.value.searchValue;
-    Console.log("+++++++++++++++++" + searchValue);
-    that.data.key=searchdesc;
-    taht.doSelectFans();
+   that.data.myFansList=[];
+    // var searchValue = e.detail.value.searchValue;
+    // Console.log("+++++++++++++++++" + searchValue);
+    // that.data.key=searchdesc;
+    //that.doSelectFans();
+      that.getmyFansList(0);
   } ,
+  Submit1: function (e) {
+    var that = this;
+    that.data.myFollowsList = [];
+    // var searchValue = e.detail.value.searchValue;
+    // Console.log("+++++++++++++++++" + searchValue);
+    // that.data.key=searchdesc;
+    //that.doSelectFans();
+    that.getmyFollowsList(0);
+  },
+  mobileInput:function(e){
+    
+    var val = e.detail.value;
+    this.setData({
+      key: val
+    });
+  },
+  mobileInput1: function (e) {
 
-
-
+    var val = e.detail.value;
+    this.setData({
+      key1: val
+    });
+  },
 
   //触底事件
   onReachBottom: function () {
@@ -103,7 +126,7 @@ Page({
   //获取粉丝列表
   getmyFansList: function(page){
     var me = this;
-    
+    console.log(me.data.key);
     wx.showLoading();
     // var user = app.getGlobalUserInfo();
     var userId = app.globalData.userId;
@@ -124,12 +147,12 @@ Page({
         if (res.data.status == 200) {
         
         var myFansList = res.data.data;
-          // console.log("--------------" + JSON.stringify(res.data.data));
+          //  console.log(res.data.data[0].user);
           // console.log("myFansList:" + JSON.stringify(myFansList));
             myFansListrows = res.data.data;
           for (var i = 0; i < myFansList.length;i++){
-            myFansList[i].province= Turnfile.getname(myFansList[i].province);
-            myFansList[i].city = Turnfile.getname(myFansList[i].city);
+            myFansList[i].user.province = Turnfile.getname(myFansList[i].user.province);
+            myFansList[i].user.city = Turnfile.getname(myFansList[i].user.city);
           }
 
           // console.log("+++++++++++++++" + JSON.stringify(myFansListrows));
@@ -162,7 +185,8 @@ Page({
     // console.log("++++++++++" + serverUrl);
     wx.request({
 
-      url: serverUrl + '/search/getFollowByKey?userid=' + userId + '&page=' + page,
+      url: serverUrl + '/search/getFollowByKey?userid=' + userId + '&page=' + page
+        + '&key=' + me.data.key1,
 
       header: {
         'content-type': 'application/json' // 默认值
@@ -228,7 +252,7 @@ Page({
       myFollowsList: [],
       myFollowsPage: 0,
 
-      key:''
+      key: ''
 
     });
     this.getmyFansList(0);
@@ -251,7 +275,7 @@ Page({
       myFollowsList: [],
       myFollowsPage: 0,
       
-      key: ''
+      key1: ''
     });
 
     this.getmyFollowsList(0);

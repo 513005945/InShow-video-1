@@ -2,7 +2,7 @@ var test = getApp().globalData.test;
 var serverUrl = getApp().serverUrl;
 var app = getApp();
 var userId = app.globalData.userId;
-
+var A;
 Page({
   data: {
       topicName:'',
@@ -62,21 +62,7 @@ Page({
           Vpage: that.data.Vpage + 1,
           List :that.data.List.concat(res.data.data),
         })
-        // var length =that.data.List.length;
-        // console.log("---------------------"+length)
-        // for(var i=0;i<4;i++){
-        //   if (res.data.data.rows[i].topicId == that.data.topicId){
-        //     that.setData({
-        //       List: that.data.List.concat(res.data.data.rows[i]),
-        //     })
-        //   }
-        // }
-        // console.log("+++++++++++++++" + that.data.List.length);
-        // if (length == that.data.List.length || that.data.List.length < 2)
-        // {
-        //   that.getvedio();
-        // }
-        
+        that.A = res.data.data; 
       }
     }) 
   },
@@ -103,12 +89,15 @@ Page({
       console.log("++++++++++++++++++++++++++++")
   },
 
-  doString: function(str){
-    if(str.length){
-
-    }
-  },
+  
   onReachBottom: function () {
         this.getvedio();
+         if(this.A.length==0)
+      {
+        wx.showToast({
+          title: '已经没有视频啦~~',
+          icon: "none"
+        });
+      }
   }
 })

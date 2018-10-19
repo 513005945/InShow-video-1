@@ -244,7 +244,7 @@ Page({
       if (myVideoListrows.length == 0) {
 
         wx.showToast({
-          title: '已经没有视频啦...',
+          title: '已经没有视频啦~~',
           icon: "none"
         });
         return;
@@ -257,7 +257,7 @@ Page({
       // 获取总页数进行判断，如果当前页数和总页数相等，则不分页
       if (likeVideoListrows.length == 0) {
         wx.showToast({
-          title: '已经没有视频啦...',
+          title: '已经没有视频啦~~',
           icon: "none"
         });
         return;

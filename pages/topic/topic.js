@@ -1,4 +1,6 @@
 // pages/topic/topic.js
+// var Alist =[];
+// var Blist =[];
 var app = getApp()
 Page({
 
@@ -53,12 +55,20 @@ Page({
       success: function(res){
         //console.log("------" + JSON.stringify(res.data.data))
         if(res.statusCode==200){
+          // var length = that.data.ATopicList.length;
           that.setData({
             Tpage: that.data.Tpage + 1,
             ATopicList: that.data.ATopicList.concat(res.data.data),
             TabActive1: "tab-active",
             TabActive2: " "
           })
+          // that.Alist = res.data.data;
+        }
+        else {
+          wx.showToast({
+            title: '已经没有主题啦~~',
+            icon: "none"
+          });
         }
         
         // console.log("------" + JSON.stringify(that.data.ATopicList))
@@ -75,14 +85,20 @@ Page({
     wx.request({
       url: serverurl + '/topic/getHart?page=' + that.data.Hpage,
       success: function (res) {
-        //console.log("------" + JSON.stringify(res.data.data))
         if (res.statusCode == 200) {
           that.setData({
             Hpage: that.data.Hpage + 1,
-            HTopicList: that.data.HTopicList.concat(res.data.data),
+            HTopicList: that.data.HTopicList.concat(res.data.data),           
             TabActive1: "",
             TabActive2: "tab-active"
           })
+          // that.Blist= res.data.data;
+        }
+        else{
+          wx.showToast({
+            title: '已经没有主题啦~~',
+            icon: "none"
+          });
         }
         
         // console.log("------" + JSON.stringify(that.data.HTopicList))
@@ -120,8 +136,21 @@ Page({
   onReachBottom: function (){
     if(this.data.list===false){
       this.getTopic();
+      // if(this.Alist.length==0)
+      // {
+      //   wx.showToast({
+      //     title: '已经没有主题啦...',
+      //     icon: "none"
+      //   });
+      // }
     }else{
       this.getTopicHart();
-    }
+    //   if (this.Blist.length == 0) {
+    //     wx.showToast({
+    //       title: '已经没有主题啦...',
+    //       icon: "none"
+    //     });
+    //   }
+     }
   }
 })

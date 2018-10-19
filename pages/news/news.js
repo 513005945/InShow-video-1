@@ -215,7 +215,7 @@ Page({
       if (myFansListrows.length == 0) {
 
         wx.showToast({
-          title: '已经没有粉丝啦...',
+          title: '已经没有粉丝啦~~',
           icon: "none"
         });
         return;
@@ -229,7 +229,7 @@ Page({
       // 获取总页数进行判断，如果当前页数和总页数相等，则不分页
       if (myFollowsListrows.length == 0) {
         wx.showToast({
-          title: '已经没有关注的人啦...',
+          title: '已经没有关注的人啦~~',
           icon: "none"
         });
         return;
@@ -284,7 +284,7 @@ Page({
         }
         else if (res.data.status == 500){
           wx.showToast({
-            title: '没有粉丝啦...',
+            title: '没有粉丝啦~~',
             icon: "none"
           });
         }
@@ -332,7 +332,7 @@ Page({
         }
         else if (res.data.status == 500) {
           wx.showToast({
-            title: '没有关注啦...',
+            title: '没有关注啦~~',
             icon: "none"
           });
         }

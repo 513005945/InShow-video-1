@@ -2,7 +2,7 @@
 
   <!-- objcetFit：当视频大小于video容器大小不一致的时候，视频选择覆盖 -->
   <!-- src="http://192.168.1.7:8081/18092868HFHRN4DP/video/bb8070d6-7fd5-4916-bc95-aebe8f18b4b1.mp4" -->
-  <video id="myVideo" src="{{src}}" muted="{{false}}" controls="{{false}}" autoplay="{{true}}" loop="{{true}}" enable-progress-gesture="{{false}}" style='width:100%;height:100%;' objectFit='{{cover}}'>
+  <video id="myVideo" src="{{src}}" muted="{{false}}" controls="{{false}}" autoplay="{{true}}" loop="{{true}}" enable-progress-gesture="{{false}}" style='width:100%;height:100%;' objectFit='{{cover}}' show-center-play-btn="{{true}}">
 
 <cover-view style='height=100%;height=100%'>
 <cover-view class='container'>

@@ -23,8 +23,8 @@
     <block wx:for="{{bgmList}}" wx:key="{{bgmListID}}">
       <!-- 这个view绑定了一个大大的事件 -->
       <view bindtap='toggleBtn' id="{{item.id}}" >
-        <audio bindtap='audioStop' id='{{item.id}}' data-id="{{item.id}}" data-key="{{item.key}}" data-play="{{item.play}}" name="{{item.name}}" author="{{item.author}}" action="{{audioAction}}" src="{{serverUrl}}{{item.path}}" poster="{{poster}}" id="myAudio" chooseCount="{{chooseCount}}"
-          style='width:300px' loop bindtimeupdate="audioPress" bindtap='showButton' controls='{{true}}' loop>
+        <audio bindplay='audioplay' bindpause="audiopause" id='{{item.id}}' controls='true' data-choose="{{item.choose}}" data-key="{{item.key}}"  name="{{item.name}}" author="{{item.author}}" action="{{audioAction}}" src="{{serverUrl}}{{item.path}}" poster="{{poster}}" chooseCount="{{chooseCount}}"
+          style='width:300px' loop bindtimeupdate="audioPress"  loop>
           <!-- 进度条 --> 
           <!-- <view bindtap='runing' data-id="{{item.id}}" wx:if="{{showView == item.id?'show':'hide'}}"> -->
           <view>

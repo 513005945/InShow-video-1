@@ -144,6 +144,7 @@ Page({
       success(res) {
         console.log(res.data);
         wx.hideLoading();
+
         if (res.data.status == 200) {
         
         var myFansList = res.data.data;
@@ -240,7 +241,8 @@ Page({
     this.setData({
       isSelectedFans: "video-info-selected",
       isSelectedFollows: "",
-   
+      
+      
 
       myFansFalg: false,
       myFollowsFalg: true,
@@ -263,7 +265,7 @@ Page({
     this.setData({
       isSelectedFans: "",
       isSelectedFollows: "video-info-selected",
-
+      
 
       myFansFalg: true,
       myFollowsFalg: false,

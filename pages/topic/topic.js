@@ -12,6 +12,8 @@ Page({
     Hpage: 1,
     ATopicList: [],
     HTopicList: [],
+    tabActive1: "null" ,
+    tabActive2: "null"
   },
   onLoad: function(){
     this.getTopic()
@@ -22,25 +24,30 @@ Page({
       hart: true,
       Tpage: 1,
       ATopicList: [],
+      tabActive: ""
     })
     this.getTopic();
   },
   btn2: function () {
+    
     this.setData({
       list: true,
       hart: false,
       Hpage: 1,
       HTopicList: [],
+      tabActive: ""
     })
     this.getTopicHart()
   },
-
   getTopic: function(){
     console.log("-----11----")
     var that = this;
     // console.log("+++++++++++++++++++++TTTTTT "+that.data.Tpage)
     var serverurl = app.serverUrl;
     // console.log("------")
+    var TabActive1 = that.data.tabActive1;
+    var TabActive2 = that.data.tabActive2;
+    console.log("123424-----------"+TabActive1);
     wx.request({
       url: serverurl+'/topic/getAll?page='+that.data.Tpage,
       success: function(res){
@@ -49,6 +56,8 @@ Page({
           that.setData({
             Tpage: that.data.Tpage + 1,
             ATopicList: that.data.ATopicList.concat(res.data.data),
+            TabActive1: "tab-active",
+            TabActive2: " "
           })
         }
         
@@ -61,6 +70,8 @@ Page({
     var that = this;
     var serverurl = app.serverUrl;
     // console.log("------")
+    var TabActive1=that.data.tabActive1;
+    var TabActive2 = that.data.tabActive2;
     wx.request({
       url: serverurl + '/topic/getHart?page=' + that.data.Hpage,
       success: function (res) {
@@ -69,6 +80,8 @@ Page({
           that.setData({
             Hpage: that.data.Hpage + 1,
             HTopicList: that.data.HTopicList.concat(res.data.data),
+            TabActive1: "",
+            TabActive2: "tab-active"
           })
         }
         

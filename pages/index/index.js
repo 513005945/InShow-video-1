@@ -20,6 +20,7 @@ Page({
     var me = this;
     //设置屏幕尺寸适应边框问题
     var screenWidth = wx.getSystemInfoSync().screenWidth;
+   
     me.setData({
       screenWidth: screenWidth,
     });
@@ -59,7 +60,7 @@ Page({
         wx.hideNavigationBarLoading(); //下拉刷新后隐藏掉动态旋转的小圈圈
         wx.stopPullDownRefresh();
 
-        console.log("分页的具体信息" + res.data);
+      
 
         // 判断当前页page是否是第一页，如果是第一页，那么设置videoList为空
         if (page === 1) {
@@ -67,7 +68,7 @@ Page({
             videoList: []
           });
         }
-
+       
         var videoList = res.data.data.rows;
 
         var newVideoList = me.data.videoList;

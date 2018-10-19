@@ -10,13 +10,14 @@ page{
   flex-direction: column
 }
 .text{
-  height: 70rpx;
-overflow:scroll; 
-/* 超出一行文字自动隐藏 */
-/* text-overflow:ellipsis; */
-/* 文字隐藏后添加省略号 */
-white-space:nowrap; 
-/* 强制不换行 */
+  /* margin-top:50rpx;  */
+  font-size: 40rpx;
+  overflow:hidden; 
+  /* 超出一行文字自动隐藏 */
+  text-overflow:ellipsis;
+  /* 文字隐藏后添加省略号 */
+  /* white-space:nowrap;  */
+  /* 强制不换行 */
 }
 .viewzhutigaishu {
   text-overflow: -o-ellipsis-lastline;
@@ -45,25 +46,35 @@ white-space:nowrap;
   border-radius: 10%;
 }
 .avatar {
-  margin-top:10rpx;
-  margin-left:30rpx; 
-  width: 180rpx;
-  height: 180rpx;
+  /* margin-top:10rpx; */
+  /* margin-left:30rpx;  */
+  width: 250rpx;
+  height: 250rpx;
   border-radius: 10%;
 }
-
+.fontsize{
+  font-size: 35rpx
+}
 .nickname {
     margin-top: 5px;
     font-weight: bold;
     font-size: 15px;
 }
 .view1 {
-  margin-top:70rpx; 
+  /* margin-left:70rpx;  */
   display: flex;
-  flex-direction: row;
-  /* align-items: center; */
+  flex-direction: column;
 }
-
+.view0{
+  display: flex;
+  flex-direction: column;
+}
+.view-1{
+  height: 100rpx;
+  width: 320rpx;
+  align-items: center;
+  justify-content: center
+}
 .viewfabuzhe {
   width: 400rpx;
   height: 300rpx;
@@ -88,6 +99,7 @@ width: 400rpx;
   /* border: solid 1px; */
 }
 .view3 {
+  padding: 88rpx 20rpx 40rpx 40rpx;
   height: 400rpx;
   /* margin-top: 30rpx; */
   display: flex;
@@ -97,10 +109,23 @@ width: 400rpx;
   background-image: url("http://192.168.1.7:8081/image/background3.jpg");
   background-size:100% 100%;
 }
+.view2_5{
+ display: flex;
+  flex-direction: row;
+  width:680rpx;
+
+}
+.view2{
+    /* padding: 30rpx 15rpx 30rpx 15rpx; */
+   display: flex;
+   flex-direction: column;
+}
 .kaipaiba{
   /* margin: 30rpx 0rpx 0rpx 30rpx; */
-  height:100rpx;
-  width: 100rpx;
+  position: absolute;
+  margin-left: 300rpx;
+  height:90rpx;
+  width: 90rpx;
 }
 
 

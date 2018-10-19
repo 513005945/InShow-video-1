@@ -115,7 +115,8 @@ page {
 }
 
 .userinfo-laber{
-  margin-left: 30rpx;
+  margin: 10rpx 0rpx 0rpx 30rpx;
+  font-size: 30rpx
 }
 /* ------------------------ */
 page {

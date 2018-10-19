@@ -10,9 +10,15 @@ page {
     margin-right: 50rpx;
     justify-content: space-between;
 }
-
+.container1 {
+    display: flex;
+    margin-top: 20rpx;
+    margin-left: 5rpx;
+    margin-right: 5rpx;
+    justify-content: space-between;
+}
 .container-me {
-    margin-top: 250rpx;
+    margin-top: 50%;
     margin-left: 50rpx;
     width: 80rpx;
 }
@@ -21,8 +27,18 @@ page {
     /* display: flex;
     flex-direction: column; */
     margin-top: 60rpx;
-    margin-left: 50rpx;
-    width: 100%;
+    margin-left: 10rpx;
+    width: 70%;
+    color: white;
+    font-size: 14px;
+}
+
+.container-reports {
+    /* display: flex;
+    flex-direction: column; */
+    margin-top: 5rpx;
+    margin-right: -420rpx;
+    width: 70%;
     color: white;
     font-size: 14px;
 }

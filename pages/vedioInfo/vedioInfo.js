@@ -69,13 +69,44 @@ Page({
 
   },
 
-  showSearch: function() {
-    wx.navigateTo({
-      url: '../vedioSearch/vedioSearch',
+  vedioShare: function() {
+    console.log("进来分享了")
+    var me =this;
+    wx.showActionSheet({
+      itemList: ["下载到本地","分享到朋友圈","分享到QQ空间","分享到微博"],
+      success: function(res){
+        if(res.tapIndex==0){
+          wx.showLoading({
+            title: '正在下载....',
+          })
+          wx.downloadFile({
+            url: serverUrl+me.data.videoInfo.videoPath,
+            success: function(res){
+              if(res.statusCode==200){
+                wx.saveVideoToPhotosAlbum({
+                  filePath: res.tempFilePath,
+                  success:function(res){
+                    wx.hideLoading();
+                  }
+                })
+              }
+              else{
+                wx.showToast({
+                  title: '此服务未开放',
+                })
+              }
+            }
+          })
+        }
+      }
     })
   },
+  //拍摄按钮
   upload: function() {
-    videoUtil.uploadVideo();
+    //videoUtil.uploadVideo();
+    wx.switchTab({
+      url: '../vedio/vedio',
+    })
   },
 
   //主页按钮
@@ -192,6 +223,9 @@ Page({
     wx.navigateTo({
       url: '../report/report?videoId=' + videoId + '&publisherId=' + publisherId,
     })
+  },
+  leaveComment: function(){
+   
   }
 
 

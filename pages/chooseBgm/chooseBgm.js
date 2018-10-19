@@ -3,8 +3,9 @@ var userId = getApp().globalData.userId;
 
 Page({
   data: {
-
+    // 单曲的封面图———写死先
     poster: "http://p4.music.126.net/tUapZaR1iT5XTX2QcAc0DA==/96757023257715.jpg",
+
     /**轮播图 */
     imgUrls: [
       'http://p3.music.126.net/bKFfzVVNmdLTaRN5uHHPqA==/18786255672743757.jpg',
@@ -13,14 +14,18 @@ Page({
     ],
 
     showView: true, //显示按钮开拍
-    play: true, //控制单曲播放
+    //play: true, //控制单曲播放
     chooseCount: 0,
     bgmList: [],
     serverUrl: serverUrl,
     videoParams: {},
     audioCtx: {},
-
-
+    itemId: "",
+    test: {},
+    //默认所有的歌曲不播放的
+    audioAction: {
+      method: 'pause'
+    },
   },
 
   /**搜索框跳转 */
@@ -37,6 +42,7 @@ Page({
       audioPress: progress
     })
   },
+
 
   onLoad: function(params) {
     var that = this;
@@ -55,7 +61,8 @@ Page({
       title: '请等待...',
     });
 
-    that.audioCtx = wx.createAudioContext("id", that)
+   // 使用wx.createAudioContext获取audio上下文的context
+    that.audioCtx = wx.createAudioContext("myAudio", that)
 
 
     // 调用后端
@@ -84,8 +91,7 @@ Page({
             duration: 2000,
             icon: "none",
             success: function() {
-
-              console.log("嘿");
+              console.log("嘿502");
             }
           });
         }
@@ -94,42 +100,66 @@ Page({
     })
   },
 
+  //点击歌曲显示按钮----并播放当前歌曲
   toggleBtn: function(e) {
     var that = this;
     //获取bgmList的当前hide的按钮
     var toggleBtn = that.data.showView;
     console.log("是否显示红色按钮" + toggleBtn)
     var itemId = e.currentTarget.id;
+
+//显示的当前歌曲的红色按钮
     if (toggleBtn == itemId) {
       that.setData({
         showView: false,
+        audioAction: {
+          method: 'pause'
+        }
       })
     } else {
       that.setData({
         showView: itemId
-      })
+      });
     }
+
     try {
-      that.audioCtx = wx.createAudioContext(that.data.itemId)
-      that.audioCtx.pause();
+      //暂停事件
+      // that.audioCtx = wx.createAudioContext(that.data.itemId)
+      // that.audioCtx.pause();
       that.setData({
-        itemId: itemId
-      })
+        itemId: itemId,
+        audioAction: {
+          method: 'pause'
+        }
+      });
       setTimeout(function() {
-        that.n_audioCtx = wx.createAudioContext(itemId);
-        that.n_audioCtx.play();
+       // that.n_audioCtx = wx.createAudioContext(itemId);
+       // that.n_audioCtx.play();
+        audioAction: {
+          method: 'play'
+        }
       }, 500)
     } catch (e) {}
   },
 
+  //确认并开拍按钮-----跳转
   uploadBtn: function(e) {
     var me = this;
 
-
-    //console.log("-----打印歌曲具体信息-----" + JSON.stringify(me.data))
-
     //TODO：点击上传按钮后得保证歌不是播放状态的————————bug暂存
-    wx.getBackgroundAudioManager().stop();
+    me.setData({
+      action: {
+        method: 'pause'
+      }
+    });
+
+    // me.data.test.pause();
+    // me.audioCtx.pause();
+    //console.log("==========================")
+    // wx.getBackgroundAudioManager().stop(); //获取后台音乐播放状态
+    // wx.pauseBackgroundAudio(); //暂停播放音乐
+    // wx.stopBackgroundAudio(); //停止播放音乐。  
+
     //console.log("----视频的具体信息----------" + JSON.stringify(me.data.videoParams))
     var duration = me.data.videoParams.duration;
     var tmpVideoUrl = me.data.videoParams.tmpVideoUrl;
@@ -138,13 +168,12 @@ Page({
     var bgmId = me.data.itemId;
     console.log("bgmId:---------" + bgmId);
 
+
+    //如果是录制上传的话，动态获取屏幕高和宽
     if (tmpWidth == undefined || tmpHeight == undefined) {
       //动态获取设备屏幕的高度
       wx.getSystemInfo({
         success: function(res) {
-          console.log(res.brand) //手机品牌
-          console.log(res.windowWidth) //手机屏幕可用宽度
-          console.log(res.windowHeight) //手机屏幕可用高度
           tmpWidth = res.windowWidth;
           tmpHeight = res.windowHeight;
         }
@@ -154,104 +183,41 @@ Page({
       var tmpHeight = me.data.videoParams.tmpHeight;
     }
 
-    console.log("---------tmpWidth上传----------" + tmpWidth)
-    console.log("---------tmpHeight---------" + tmpHeight)
-    console.log("---------duration---------" + duration)
-
     wx.navigateTo({
       url: '../publish/publish?duration=' + duration +
         "&tmpHeight=" + tmpHeight +
         "&tmpWidth=" + tmpWidth +
         "&tmpVideoUrl=" + tmpVideoUrl +
-        "&tmpCoverUrl=" + tmpCoverUrl + 
+        "&tmpCoverUrl=" + tmpCoverUrl +
         "&audioId=" + bgmId
     })
 
   },
 
+  onShow: function() {
+    var me = this;
+    // me.audioCtx.pause();
+    // wx.getBackgroundAudioManager().stop();
+    // wx.pauseBackgroundAudio(); //暂停播放音乐
+    // wx.stopBackgroundAudio(); //停止播放音乐。
+    // me.audioCtx = wx.createAudioContext(bgmId)
+    // me.audioCtx.pause();
+    console.log("============onShow==============")
+  },
+
+  onHide: function() {
+    var me = this;
+    // me.audioCtx.pause();
+    // wx.getBackgroundAudioManager().stop();
+    // wx.pauseBackgroundAudio(); //暂停播放音乐
+    // wx.stopBackgroundAudio(); //停止播放音乐。
+    console.log("============onHide==============")
+  },
+
+  onRead: function() {
+    var that = this;
+    // 使用wx.createAudioContext获取audio上下文的context
+   // that.audioCtx = wx.createAudioContext("myAudio", that)
+  }
 
 })
-
-
-
-//点击第二首歌曲的时候
-// {
-//   "poster": "http://p4.music.126.net/tUapZaR1iT5XTX2QcAc0DA==/96757023257715.jpg",
-//   "imgUrls": ["http://p3.music.126.net/bKFfzVVNmdLTaRN5uHHPqA==/18786255672743757.jpg", "http://p4.music.126.net/n15ddawhY4cyIzFu23CSJA==/1401877341861315.jpg", "http://p3.music.126.net/zMwH3zh33TAacyh2_4RjXw==/1375489062675977.jpg"],
-//   "showView": "180927DPB78GT44H",
-//   "play": true,
-//   "chooseCount": 0,
-//   "bgmList": [{
-//     "id": "180927DPB6G6PRWH",
-//     "author": "鞠文娴",
-//     "name": "BINGBIAN病变 (女声版)",
-//     "path": "/bgm/BINGBIAN病变 (女声版)-鞠文娴_铃声之家cnwav.mp3",
-//     "chooseCount": 3
-//   }, {
-//     "id": "180927DPB78GT44H",
-//     "author": "Charli XCX",
-//     "name": "Boys",
-//     "path": "/bgm/Boys-Charli XCX_铃声之家cnwav.mp3",
-//     "chooseCount": 0
-//   }, {
-//     "id": "180927DPB7KT3NF8",
-//     "author": "Trackformers",
-//     "name": "call of the ambulance",
-//     "path": "/bgm/call of the ambulance-Trackformers_铃声之家cnwav.mp3",
-//     "chooseCount": 5
-//   }, {
-//     "id": "180927DPB7ZCMTMW",
-//     "author": "Atwood3",
-//     "name": "Despacito（苹果手机铃声版）",
-//     "path": "/bgm/Despacito（苹果手机铃声版）-Atwood3_铃声之家cnwav.mp3",
-//     "chooseCount": 0
-//   }, {
-//     "id": "180927DPB88YSCX4",
-//     "author": "Daddy Yankee",
-//     "name": "Dura（抖音火热神曲）",
-//     "path": "/bgm/Dura（抖音火热神曲）-Daddy Yankee_铃声之家cnwav.mp3",
-//     "chooseCount": 4
-//   }, {
-//     "id": "180927DPB8CZB1WH",
-//     "author": "Taylor Swift",
-//     "name": "Look What You Made Me Do",
-//     "path": "/bgm/Look What You Made Me Do-Taylor Swift_铃声之家cnwav.mp3",
-//     "chooseCount": 0
-//   }, {
-//     "id": "180927DPB8M9FG54",
-//     "author": "Vicetone、Cozi Zuehlsdorff",
-//     "name": "Nevada",
-//     "path": "/bgm/Nevada-Vicetone、Cozi Zuehlsdorff_铃声之家cnwav.mp3",
-//     "chooseCount": 3
-//   }, {
-//     "id": "180927DPB92FNX1P",
-//     "author": "Alice Merton",
-//     "name": "No Roots (Single版)",
-//     "path": "/bgm/No Roots (Single版)-Alice Merton_铃声之家cnwav.mp3",
-//     "chooseCount": 0
-//   }, {
-//     "id": "180927DPB96G8F14",
-//     "author": "ラムジ",
-//     "name": "PLANET（温柔日系男声）",
-//     "path": "/bgm/PLANET（温柔日系男声）-ラムジ_铃声之家cnwav.mp3",
-//     "chooseCount": 0
-//   }, {
-//     "id": "180927DPB9AN8KYW",
-//     "author": "Russ",
-//     "name": "Psycho (Pt. 2)",
-//     "path": "/bgm/Psycho (Pt. 2)-Russ_铃声之家cnwav.mp3",
-//     "chooseCount": 0
-//   }],
-//   "serverUrl": "http://192.168.1.7:8081",
-//   "videoParams": {
-//     "duration": "10.033333",
-//     "tmpHeight": "960",
-//     "tmpWidth": "544",
-//     "tmpVideoUrl": "http://tmp/wxa35bbd6556297ebd.o6zAJswv484Br_z2PXMPD6m6YV-w.Cf4BjKhw4kpy55c8ac4a92f9146596ada440250da6e2.mp4",
-//     "tmpCoverUrl": "http://tmp/wxa35bbd6556297ebd.o6zAJswv484Br_z2PXMPD6m6YV-w.3Y4LTe2civMB1519a7d3e11fda70d0c1644ec15528ab.jpg"
-//   },
-//   "audioCtx": {},
-//   "__webviewId__": 173,
-//   "itemId": "180927DPB78GT44H",
-//   "audioPress": 4
-// }

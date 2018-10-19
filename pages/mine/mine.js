@@ -48,7 +48,7 @@ Page({
     var userId = app.globalData.userId;
     // console.log("..." + JSON.stringify(user));
     // var userId = app.getGlobalUserId();
-    // console.log("+++++++++++++++++++++++++++++++++++++++++++++++++" + userId + "---");
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++" + userId  + "---");
     var serverUrl = app.serverUrl;
     // console.log("2++++++++++++++++++++++++++++++++++++" + serverUrl + "--");
     // me.setData({
@@ -194,10 +194,7 @@ Page({
   //收藏
   getMyLikesList: function (page) {
     var me = this;
-    // var user = app.getGlobalUserInfo();
-    // var userId = app.getGlobalUserId();
     var user = app.globalData.userInfo;
-    //var user = app.getGlobalUserInfo();
 
     var userId = app.globalData.userId;
     var serverUrl = app.serverUrl;

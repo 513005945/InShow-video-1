@@ -1,18 +1,18 @@
 {
   "pages": [
-    "pages/news/news",
+    "pages/login/login",
     "pages/vedio/vedio",
+    "pages/chooseBgm/chooseBgm",
+    "pages/news/news",
     "pages/publish/publish",
     "pages/index/index",
     "pages/vedioInfo/vedioInfo",
     "pages/ReleaseVideo/ReleaseVideo",
     "pages/bgmsearch/bgmsearch",
-    "pages/login/login",
-    "pages/chooseBgm/chooseBgm",
+    
     "pages/topic/topic",
     "pages/topicdetail/topicdetail",
     "pages/uploadtopic/uploadtopic",
-   
     "pages/mine/mine",
     "pages/vedioSearch/vedioSearch",
     "pages/userInfo/userInfo",

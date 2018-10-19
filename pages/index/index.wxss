@@ -14,7 +14,7 @@
 }
 
 .desc {
-    margin-top: -40rpx;
+    margin-top: -80rpx;
     margin-bottom: 10rpx;
     display: flex;
     align-items: center;
@@ -29,10 +29,8 @@
 
 .desc .faceName {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    
-    margin-left: 10px;
+    margin-left: 6px;
 }
 
 .title {
@@ -44,15 +42,15 @@
 
 .myface {
     display: block;
-    width: 60rpx;
-    height: 60rpx;
-    border-radius: 30rpx;
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 100%;
     margin-top: 10rpx;
-    margin-right: 20rpx;
+    margin-right: rpx;
 }
 
 .nickname {
-    font-size: 20rpx;
+    font-size: 30rpx;
     margin-top: 6rpx;
     margin-right: 20rpx;
     color: darkgray;

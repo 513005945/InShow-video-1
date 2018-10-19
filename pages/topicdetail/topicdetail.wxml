@@ -1,4 +1,24 @@
-<view class='view3' >
+<view class='view3'>
+<view class='view2_5'>
+  <view class='view2'>
+  <image  class="avatar" src='{{coverPath}}'></image>
+  <label class='fontsize'>发布：{{username}}</label> 
+  <label  class='fontsize'>参与：{{participationCounts}}</label>
+  </view>
+  <view class='view1'>
+  <view class='view0'>
+  <label class='text'>主题：</label>
+  <label class='text'>{{topicName}}</label>
+  <label >概述：</label>
+  <label class='viewzhutigaishu'>{{topicDesc}}</label>
+  <image class='kaipaiba' bindtap='kaipai' src='../resource/images/kaipaiba.png'></image>
+  </view>
+  </view>
+  </view>
+</view>
+
+
+<!-- <view class='view3' >
       <view class='view1'>
       <image  class="avatar" src='{{coverPath}}'></image>
       <view class='viewfabuzhe'>
@@ -12,9 +32,8 @@
       <label>参与：</label>
       <label>{{participationCounts}}</label>
       </view>
-      
       </view>
-</view>
+</view> -->
 
 <!-- <scroll-view   Bindscrolltolower="getvedio()">
   <block wx:for="{{List}}">

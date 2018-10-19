@@ -2,8 +2,7 @@ var Turnfile = require('../../utils/station_name.js')
 //获取应用实例
 const app = getApp()
 var serverUrl = app.serverUrl;
-var userId = app.globalData.userId;
-
+//var userId = app.globalData.userId;
 var myVideoListrows; //翻页用的
 var likeVideoListows;
 
@@ -41,18 +40,25 @@ Page({
     receiveLikeCounts: 0,
 
     isFollow: true, //默认未关注，快去关注我
-    videoInfo: null
+    videoInfo: null,
+    userId: ""
   },
 
-  onLoad: function(params) {
+  onLoad: function (params) {
+
+    console.log("********登陆者ID：" + app.globalData.userId);
+    console.log("********登陆者ID1：" + this.data.userId);
     var that = this;
+    var userId = app.globalData.userId;
     var publisherId = params.publisherId;
     //var isFollow=params.isFollow
     //console.log("***************111********************" + params.isFollow);
     that.setData({
       videoInfo: params.videoInfo,
       isFollow: params.isFollow,
+      userId: userId
     })
+    console.log("****ID:" + userId);
     //console.log("***********************************" + that.data.isFollow);
     if (publisherId != null && publisherId != '' && publisherId != undefined) {
       // userId = publisherId;
@@ -67,7 +73,7 @@ Page({
 
     //请求个人简介
     wx.request({
-      url: serverUrl + '/user/query?userId=' + params.publisherId + "&loginId=" + userId,
+      url: serverUrl + '/user/query?userId=' + params.publisherId + "&loginId=" + that.data.userId,
       method: "POST",
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
@@ -99,16 +105,16 @@ Page({
   },
 
   //关注与取消关注的按钮
-  followMe: function(e) {
+  followMe: function (e) {
     var that = this;
     var publisherId = that.data.publisherId;
     var followType = e.currentTarget.dataset.followtype;
     var url = '';
     //
     if (that.data.isFollow === false) {
-      url = '/user/fanspick?followId=' + publisherId + '&userId=' + userId;
+      url = '/user/fanspick?followId=' + publisherId + '&userId=' + that.data.userId;
     } else {
-      url = '/user/fansUnpick?userId=' + userId + '&followId=' + publisherId;
+      url = '/user/fansUnpick?userId=' + that.data.userId + '&followId=' + publisherId;
     }
 
     wx.showLoading();
@@ -118,7 +124,7 @@ Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
-      success: function(res) {
+      success: function (res) {
         wx.hideLoading();
         console.log("**************" + JSON.stringify(res));
         //1:关注 
@@ -141,7 +147,7 @@ Page({
 
 
   //作品
-  doSelectWork: function() {
+  doSelectWork: function () {
     this.setData({
       isSelectedWork: "video-info-selected",
       isSelectedLike: "",
@@ -167,7 +173,7 @@ Page({
     this.getMyVideoList(1);
   },
   //获取视频列表信息------作品
-  getMyVideoList: function(page) {
+  getMyVideoList: function (page) {
     var that = this;
     var publisherId = that.data.publisherId;
     // 查询视频信息
@@ -179,7 +185,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function(res) {
+      success: function (res) {
         console.log("-----------------打印获取的作品data------------" + JSON.stringify(res.data.data.rows));
         var myVideoList = res.data.data.rows;
         myVideoListrows = res.data.data.rows; //翻页用的
@@ -218,11 +224,11 @@ Page({
       followVideoPage: 1,
       followVideoTotal: 1
     });
-    
+
     this.getMyLikesList(1);
   },
   //获取收藏列表信息------收藏
-  getMyLikesList: function(page) {
+  getMyLikesList: function (page) {
     var that = this;
     var publisherId = that.data.publisherId;
     console.log("即将打印居居的id-=-=-" + publisherId)
@@ -235,7 +241,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function(res) {
+      success: function (res) {
         console.log("-----快来打印收藏嗷嗷嗷嗷-------" + res.data);
         var likeVideoList = res.data.data.rows;
         wx.hideLoading();
@@ -259,7 +265,7 @@ Page({
 
 
   // 到底部后触发加载
-  onReachBottom: function() {
+  onReachBottom: function () {
     var myWorkFalg = this.data.myWorkFalg;
     var myLikesFalg = this.data.myLikesFalg;
     // console.log(this.data);
@@ -296,7 +302,7 @@ Page({
 
   },
   //点击视频列表跳转到对应的视频播放页
-  showVideoInfo: function(e) {
+  showVideoInfo: function (e) {
     var me = this;
     var myWorkFalg = this.data.myWorkFalg; //我的作品
     var myLikesFalg = this.data.myLikesFalg; //我的收藏

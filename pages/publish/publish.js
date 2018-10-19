@@ -9,7 +9,15 @@ Page({
     desc: "这个是描述", //视频描述
     allParams: {}, //视频和bgm所有的参数集合
     topicId: "", //这是单选框的可选话题
-    
+
+  },
+
+  onShow() {
+    console.log("关闭音乐");
+    // wx.stopBackgroundAudio();
+    // wx.pauseVoice();
+    //  wx.pauseBackgroundAudio(); 
+     wx.stopVoice();
   },
 
   onLoad: function(params) {
@@ -20,6 +28,7 @@ Page({
     console.log("------------视频路径--------------" + params.tmpVideoUrl)
     console.log("------------视频封面--------------" + params.tmpCoverUrl)
     console.log("------------视频bgmId--------------" + params.audioId)
+
     that.setData({
       allParams: params,
     })
@@ -89,7 +98,7 @@ Page({
       title: '上传中...',
     });
     //console.log("--------******************---------" + me.data.allParams.tmpVideoUrl);
-   // console.log("---------+++++++++-----------" + JSON.stringify(me.data))
+    // console.log("---------+++++++++-----------" + JSON.stringify(me.data))
     wx.uploadFile({
       url: serverUrl + '/video/uploadVideos',
       method: 'POST',

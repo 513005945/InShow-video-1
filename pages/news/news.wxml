@@ -1,5 +1,3 @@
-<!--pages/news/news.wxml-->
-
  <view class='container-video'>
     <view class='{{SelClass}} {{isSelectedFans}}' bindtap='doSelectFans'>粉丝</view>
     <view class='{{SelClass}} {{isSelectedFollows}}' bindtap='doSelectFollows'>关注</view>  
@@ -14,40 +12,37 @@
       <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
       <input value="{{key}}"  class="weui-search-bar__input" placeholder="请输入查询内容" 
        bindblur="mobileInput" />
-       <!-- <view class="weui-icon-clear" wx:if="{{wxSearchData.value.length > 0}}" bindtap="wxSearchClear">
-         <icon type="clear" size="14"></icon> 
-      </view>  -->
     </view>
   </view>
     <view class="weui-search-bar__cancel-btn" >
          <text  bindtap='Submit'>搜索</text>
      </view>
 </view>
-
-
-
-
 <block wx:for="{{myFansList}}" >
-        <!-- <image src='{{serverUrl}}{{item.coverPath}}' class='videoImage' mode="aspectFill" bindtap='showVideoInfo' data-arrindex='{{index}}'></image> -->
         <view class='userinfo1'>
         <view class='userinfo2'>
         <image bindtap='showUser' data-userId="{{item.user.id}}" class="one" src='{{item.user.avatarurl}}'></image>
         <view class='userinfo3'>
         <label bindtap='showUser' data-userId="{{item.user.id}}" class='nickname'>{{item.user.nickname}}</label>
-        <label style='margin-top:10rpx;'>省份 : {{item.user.province}}</label>
-        <label>城市 : {{item.user.city}}</label>
+        <label class='Introduction' style='margin-top:10rpx;'>省份 : {{item.user.province}}</label>
+        <label class='Introduction'>城市 : {{item.user.city}}</label>
+        </view>
+        <block wx:if="{{item.isFans}}">
+        <view class='Follow'>
+        <image class="imgFollow" src='http://192.168.1.7:8081/image/相互关注.png' ></image>
+        <text class='textFollow'>相互关注</text>
+        </view>
+        </block>
+        <block wx:else>
+        <view class='Follow'>
+        <image class="imgFollowtosmall" src='http://192.168.1.7:8081/image/加关注.png' ></image>
+        <text class='textFollow'>添加关注</text>
+        </view>
+        </block>
         </view>
         </view>
-        <image class="two" src='../resource/images/cardbg.jpg'></image>
-        </view>
-    </block>
-<!-- </view>
-<!-- <view wx:if="{{myFansList.length>0}}">
-<view wx:else class='nofanstips'>
-<text >你还没有粉丝哦~</text>
-</view> --> 
-
-<!-- -------------------------------- -->
+        <view class="line"></view>
+</block>
 </view>
 
 
@@ -68,9 +63,8 @@
          <text  bindtap='Submit1'>搜索</text>
      </view>
 </view>
-<!-- <view wx:if="{{myFollowsList.length>0}}"> -->
+
 <block  wx:for="{{myFollowsList}}" >
-        <!-- <image src='{{serverUrl}}{{item.coverPath}}' class='videoImage' mode="aspectFill" bindtap='showVideoInfo' data-arrindex='{{index}}'></image> -->
         <view  class='userinfo1'>
         <view class='userinfo2'>
         <image bindtap='showUser' data-userId="{{item.id}}" class="one" src='{{item.avatarurl}}'></image>
@@ -82,12 +76,9 @@
         </view>
         <image class="two" src='../resource/images/cardbg.jpg'></image>
         </view>
-    </block>
-<!-- </view>
-<view wx:else class='nofanstips'>
-<text >你还没有关注的人哦~</text>
-</view> -->
+</block>
 
-<!-- -------------------------------- -->
+
+
 </view>
 </view>

@@ -272,20 +272,25 @@ Page({
     var me = this;
     var myWorkFalg = this.data.myWorkFalg;
     var myLikesFalg = this.data.myLikesFalg;
-
+    var arrindex = e.target.dataset.arrindex;
 
     if (!myWorkFalg) {
       var videoList = this.data.myVideoList;
+      // var videoList = me.data.myVideoList;
+      var videoInfo = JSON.stringify(videoList[arrindex]);
     } else if (!myLikesFalg) {
       var videoList = this.data.likeVideoList;
+      // var videoList = me.data.likeVideoList;
+      var videoInfo = JSON.stringify(videoList[arrindex]);
     }
-    var videoList = me.data.myVideoList;
-    var arrindex = e.target.dataset.arrindex;
-    var videoInfo = JSON.stringify(videoList[arrindex]);
+    // var videoList = me.data.myVideoList;
+ 
+    // var videoInfo = JSON.stringify(videoList[arrindex]);
     console.log("视频信息叻" + videoInfo)
     wx.redirectTo({
       url: '../vedioInfo/vedioInfo?videoInfo=' + videoInfo
 
     })
   }
+  
 })

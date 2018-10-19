@@ -18,27 +18,26 @@
 
 <!--滚动视图，允许纵向滚动-->
 <scroll-view scroll-y="true" class="container">
-  <!-- <view class="container"> -->
  
     <block wx:for="{{bgmList}}" wx:key="{{bgmListID}}">
       <!-- 这个view绑定了一个大大的事件 -->
       <view bindtap='toggleBtn' id="{{item.id}}" >
+
         <audio bindplay='audioplay' bindpause="audiopause" id='{{item.id}}' controls='true' data-choose="{{item.choose}}" data-key="{{item.key}}"  name="{{item.name}}" author="{{item.author}}" action="{{audioAction}}" src="{{serverUrl}}{{item.path}}" poster="{{poster}}" chooseCount="{{chooseCount}}"
           style='width:300px' loop bindtimeupdate="audioPress"  loop>
-          <!-- 进度条 --> 
-          <!-- <view bindtap='runing' data-id="{{item.id}}" wx:if="{{showView == item.id?'show':'hide'}}"> -->
+
           <view>
             <progress wx:if="{{showView == item.id}}" percent="{{audioPress}}" stroke-width="2" />
           </view>
+
         </audio>
       </view>
-      <!-- <view class="{{showView == item.id?'show':'hide'}}" >
-        <button class="button" bindtap='{{uploadBtn}}'>确认并开拍</button>
-      </view> -->
+
       <view wx:if="{{showView == item.id}}">
         <button class="button" bindtap='uploadBtn'>确认并开拍</button>
       </view>
+
     </block>
-    <!-- </view> -->
+   
   
 </scroll-view>

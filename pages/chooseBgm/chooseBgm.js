@@ -20,7 +20,6 @@ Page({
     videoParams: {},
     audioCtx: {},
 
-
   },
 
   /**搜索框跳转 */
@@ -37,21 +36,22 @@ Page({
       audioPress: progress
     })
   },
+
   //-------------------------------------------------------------------------------------
   audioplay: function(e) {
     var thisAudio = wx.createAudioContext(e.currentTarget.id)
     var me = this;
+
     me.setData({
       playingBgm: e.currentTarget.id
     })
-    if (e.currentTarget.choose==0)
 
+    if (e.currentTarget.choose==0)
       thisAudio.play();
     else
       return
     
     console.log(e)
-    
     var list = me.data.bgmList;
     console.log("--------------"+list.length)
     for (var i = 0; i < list.length;i++){
@@ -129,7 +129,6 @@ Page({
           });
         }
       }
-
     })
   },
 
@@ -210,9 +209,7 @@ Page({
         "&tmpCoverUrl=" + tmpCoverUrl +
         "&audioId=" + bgmId
     })
-
   },
-
 
 })
 

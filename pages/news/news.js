@@ -9,7 +9,7 @@ Page({
   /**
    * 页面的初始数据
    */
-
+  
   data: {
     SelClass: "video-info",
     isSelectedFans: "video-info-selected",
@@ -24,14 +24,14 @@ Page({
     myFollowsList: [],
     myFollowsPage: 0,
 
-    myFansSearchList: [],
+    myFansSearchList:[],
 
-    myFollowsSearchList: [],
+    myFollowsSearchList:[],
 
     //个人信息
-    key: '',
-    key1: '',
-    id: '',
+     key:'',
+     key1:'',
+    id:'',
     avatarurl: '',
     city: '',
     country: '',
@@ -43,56 +43,72 @@ Page({
     username: '',
     fansCounts: 0,
     followCounts: 0,
-    receiveLikeCounts: 0,
-    hasFans:false,//这里先默认没有关注的
+    receiveLikeCounts: 0
   },
 
 
 
-  onLoad: function () {
+  onLoad: function(){
     var me = this;
-
-    me.getmyFansList(0);
+    
+    me.getmyFansList(0);    
   },
 
-  addFollows: function (e) {
+  cancelFollows: function (e){
     var that = this;
-    console.log(e);
+    
     var followId = e.currentTarget.dataset.id;
     var userId = app.globalData.userId;
-
+    console.log("FFFFFFFFF" + followId);
+    console.log("UUUUUUUUU" + e.currentTarget.dataset.index);
+    console.log("UUUUUUUUU" + userId);
+    
     wx.showModal({
       title: '提示',
-      content: '确定要添加该用户关注吗？',
+      content: '确定要取消关注该用户吗？',
       success: function (res) {
         if (res.confirm) {//这里是点击了确定以后
           console.log('用户点击确定')
           wx.showLoading();
           // console.log("++++++++++" + userId);
           wx.request({
-            url: 'http://192.168.1.7:8081/user/fanspick?followId=' + followId + '&userId=' + userId,
+            url: 'http://192.168.1.7:8081/user/fansUnpick?followId=' + followId + '&userId=' + userId,
             method: 'POST',
             header: {
               'content-type': 'application/x-www-form-urlencoded' // 默认值
             },
             success: function (res) {
               // console.log("++++++++++" + userId);
-              that.setData({
-                hasFans: !hasFans
-              });
-           
               wx.hideLoading();
               wx.showToast({
-                title: '添加成功',
+                title: '取消关注成功',
                 icon: 'success',
-                image: '',
-                duration: 0,
-                mask: true,
-                success: function (res) { },
-                fail: function (res) { },
-                complete: function (res) { },
               })
-            }
+              if (e.currentTarget.dataset.index!=that.data.myFollowsList.length-1){
+                for (var i = e.currentTarget.dataset.index; i < that.data.myFollowsList.length; i++) {
+
+                  that.data.myFollowsList[i] = that.data.myFollowsList[i + 1];
+                }
+                that.data.myFollowsList.length -= 1;
+              }else{
+                console.log("1111111111");
+                that.data.myFollowsList.length -= 1;
+                console.log(that.data.myFollowsList);
+              }
+              
+               var aaalist = that.data.myFollowsList;
+              that.setData({
+                 myFollowsList: aaalist,
+               })
+            //   aaalist[e.currentTarget.dataset.index].isFans = !aaalist[e.currentTarget.dataset.index].isFans;
+            //   console.log(that.data.myFansList[e.currentTarget.dataset.index].isFans);
+            //   that.setData({
+            //     myFansList: aaalist,
+            //   })
+            //   console.log(that.data.myFansList[e.currentTarget.dataset.index].isFans);
+             }
+
+
           })
 
         } else {//这里是点击了取消以后
@@ -104,15 +120,64 @@ Page({
     })
   },
 
-  Submit: function (e) {
+  addFollows:function(e){
+      var that=this;
+    console.log(e.currentTarget.dataset.index);
+    var followId = e.currentTarget.dataset.id;
+    var userId = app.globalData.userId;
+    
+    wx.showModal({
+      title: '提示',
+      content: '确定要添加该用户关注吗？',
+      success: function (res) {
+        if (res.confirm) {//这里是点击了确定以后
+          console.log('用户点击确定')
+          wx.showLoading();
+          // console.log("++++++++++" + userId);
+          wx.request({
+            url: 'http://192.168.1.7:8081/user/fanspick?followId=' + followId + '&userId='+userId,
+            method: 'POST',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded' // 默认值
+            },
+            success: function (res){
+              // console.log("++++++++++" + userId);
+              wx.hideLoading();
+              wx.showToast({
+                title: '添加成功',
+                icon: 'success',
+              })
+              var aaalist = that.data.myFansList;
+              aaalist[e.currentTarget.dataset.index].isFans = !aaalist[e.currentTarget.dataset.index].isFans;
+              console.log(that.data.myFansList[e.currentTarget.dataset.index].isFans);
+              that.setData({
+                myFansList: aaalist,
+              })
+              // that.data.myFansList[e.currentTarget.dataset.index].isFans = !that.data.myFansList[e.currentTarget.dataset.index].isFans;
+              console.log(that.data.myFansList[e.currentTarget.dataset.index].isFans);
+            }
+           
+
+          })
+          
+        } else {//这里是点击了取消以后
+          console.log('用户点击取消')
+        }
+
+      }
+
+    })
+  },
+
+ Submit:function(e){
     var that = this;
-    that.data.myFansList = [];
+   that.data.myFansList=[];
     // var searchValue = e.detail.value.searchValue;
     // Console.log("+++++++++++++++++" + searchValue);
     // that.data.key=searchdesc;
     //that.doSelectFans();
-    that.getmyFansList(0);
-  },
+      that.getmyFansList(0);
+  } ,
   Submit1: function (e) {
     var that = this;
     that.data.myFollowsList = [];
@@ -122,14 +187,15 @@ Page({
     //that.doSelectFans();
     that.getmyFollowsList(0);
   },
-  mobileInput: function (e) {
-
+  mobileInput:function(e){
+    
     var val = e.detail.value;
     this.setData({
       key: val
     });
   },
   mobileInput1: function (e) {
+
     var val = e.detail.value;
     this.setData({
       key1: val
@@ -171,9 +237,9 @@ Page({
       var page = currentPage + 1;
       this.getmyFollowsList(page);
     }
-  },
+   } ,
   //获取粉丝列表
-  getmyFansList: function (page) {
+  getmyFansList: function(page){
     var me = this;
     console.log(me.data.key);
     wx.showLoading();
@@ -184,7 +250,7 @@ Page({
     wx.request({
 
       url: serverUrl + '/search/getFansByKey?userid=' + userId + '&page=' + page
-        + '&key=' + me.data.key,
+        +'&key=' +  me.data.key,
 
       header: {
         'content-type': 'application/json' // 默认值
@@ -195,28 +261,28 @@ Page({
         wx.hideLoading();
 
         if (res.data.status == 200) {
-
-          var myFansList = res.data.data;
+        
+        var myFansList = res.data.data;
           //  console.log(res.data.data[0].user);
           // console.log("myFansList:" + JSON.stringify(myFansList));
-          myFansListrows = res.data.data;
-          for (var i = 0; i < myFansList.length; i++) {
+            myFansListrows = res.data.data;
+          for (var i = 0; i < myFansList.length;i++){
             myFansList[i].user.province = Turnfile.getname(myFansList[i].user.province);
             myFansList[i].user.city = Turnfile.getname(myFansList[i].user.city);
           }
 
           // console.log("+++++++++++++++" + JSON.stringify(myFansListrows));
-          var newFansList = me.data.myFansList;
-          me.setData({
+        var newFansList = me.data.myFansList;
+        me.setData({
 
-            myFansPage: page,
-            myFansList: newFansList.concat(myFansList),
-            // myFansTotal: res.data.data.total,
-            serverUrl: app.serverUrl,
-          });
-          // console.log(myFansList);
+           myFansPage: page,
+          myFansList: newFansList.concat(myFansList),
+          // myFansTotal: res.data.data.total,
+          serverUrl: app.serverUrl,
+        });
+        // console.log(myFansList);
         }
-        else if (res.data.status == 500) {
+        else if (res.data.status == 500){
           wx.showToast({
             title: '没有粉丝啦...',
             icon: "none"
@@ -248,7 +314,7 @@ Page({
         if (res.data.status == 200) {
 
           var myFollowsList = res.data.data;
-          myFollowsListrows = res.data.data;
+              myFollowsListrows = res.data.data;
           for (var i = 0; i < myFollowsList.length; i++) {
             myFollowsList[i].province = Turnfile.getname(myFollowsList[i].province);
             myFollowsList[i].city = Turnfile.getname(myFollowsList[i].city);
@@ -273,7 +339,7 @@ Page({
       },
     })
   },
-
+  
   //跳转到用户信息页面
   showUser: function (e) {
     var that = this;
@@ -285,13 +351,13 @@ Page({
     })
   },
 
-
+  
   doSelectFans: function () {
     this.setData({
       isSelectedFans: "video-info-selected",
       isSelectedFollows: "",
-
-
+      
+      
 
       myFansFalg: false,
       myFollowsFalg: true,
@@ -314,23 +380,23 @@ Page({
     this.setData({
       isSelectedFans: "",
       isSelectedFollows: "video-info-selected",
-
+      
 
       myFansFalg: true,
       myFollowsFalg: false,
-
+     
       myFansList: [],
       myFollowsPage: 0,
 
 
       myFollowsList: [],
       myFollowsPage: 0,
-
+      
       key1: ''
     });
 
     this.getmyFollowsList(0);
   },
-
+  
 })
 

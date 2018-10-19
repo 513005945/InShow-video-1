@@ -109,7 +109,7 @@ Page({
     var that = this;
     var publisherId = that.data.publisherId;
     var followType = e.currentTarget.dataset.followtype;
-    var url = '';
+    var url = ''; 
     //
     if (that.data.isFollow === false) {
       url = '/user/fanspick?followId=' + publisherId + '&userId=' + that.data.userId;
@@ -304,23 +304,28 @@ Page({
   //点击视频列表跳转到对应的视频播放页
   showVideoInfo: function (e) {
     var me = this;
-    var myWorkFalg = this.data.myWorkFalg; //我的作品
-    var myLikesFalg = this.data.myLikesFalg; //我的收藏
+    var myWorkFalg = this.data.myWorkFalg;
+    var myLikesFalg = this.data.myLikesFalg;
+    var arrindex = e.target.dataset.arrindex;
 
     if (!myWorkFalg) {
       var videoList = this.data.myVideoList;
-      console.log("emmm----视频作品列表信息----" + videoList)
+      // var videoList = me.data.myVideoList;
+      var videoInfo = JSON.stringify(videoList[arrindex]);
     } else if (!myLikesFalg) {
       var videoList = this.data.likeVideoList;
+      // var videoList = me.data.likeVideoList;
+      var videoInfo = JSON.stringify(videoList[arrindex]);
     }
-    var videoList = me.data.myVideoList;
-    var arrindex = e.target.dataset.arrindex;
-    var videoInfo = JSON.stringify(videoList[arrindex]);
-    console.log("个人信息页的视频详情页" + videoInfo)
+    // var videoList = me.data.myVideoList;
+
+    // var videoInfo = JSON.stringify(videoList[arrindex]);
+    console.log("视频信息叻" + videoInfo)
     wx.redirectTo({
       url: '../vedioInfo/vedioInfo?videoInfo=' + videoInfo
+
     })
-  },
+  }
 
 
 })

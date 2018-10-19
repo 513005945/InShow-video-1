@@ -1,4 +1,4 @@
-var videoUtil = require('../../utils/vedioUtil.js')
+//var videoUtil = require('../../utils/vedioUtil.js')
 var serverUrl = getApp().serverUrl;
 var userId = getApp().globalData.userId;
 

@@ -30,7 +30,7 @@
 </view>
   
 <view class='container-video-list'>
-<view hidden='{{myWorkFalg}}'>
+<view hidden='{{myWorkFalg}}'> 
     <block wx:for="{{myVideoList}}" >
         <image src='{{serverUrl}}{{item.coverPath}}' class='videoImage' mode="aspectFill" bindtap='showVideoInfo' data-arrindex='{{index}}'></image>
     </block>

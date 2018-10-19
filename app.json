@@ -1,10 +1,11 @@
 {
   "pages": [
-    "pages/vedio/vedio",
+    
+    "pages/index/index",
     "pages/chooseBgm/chooseBgm",
     "pages/login/login",
-   
-    "pages/index/index",
+    "pages/vedio/vedio",
+  
     "pages/news/news",
     "pages/publish/publish",
     
